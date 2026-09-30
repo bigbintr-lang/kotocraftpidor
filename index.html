@@ -4,118 +4,167 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Поздравляем Хирона со 100 складками! 🎉</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&family=Pacifico&display=swap" rel="stylesheet">
 <style>
+  :root { --pink:#ff4fa3; --pink2:#ff8fc8; --violet:#a45bff; --blue:#3fb6ff; --ink:#4b2377; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; overflow-x: hidden; }
+  html { scroll-behavior: smooth; }
   body {
-    font-family: "Comic Sans MS", "Trebuchet MS", sans-serif;
+    font-family: "Nunito", "Comic Sans MS", sans-serif; font-weight: 600;
     background: linear-gradient(135deg, #ffd6ec, #d9c6ff, #c6ecff, #ffd6ec);
-    background-size: 400% 400%;
-    animation: bg 14s ease infinite;
-    color: #5b2a86;
+    background-size: 400% 400%; animation: bg 16s ease infinite;
+    color: var(--ink); overflow-x: hidden; min-height: 100vh;
   }
   @keyframes bg { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+  body.shake { animation: bg 16s ease infinite, quake .6s; }
+  @keyframes quake { 0%,100%{transform:translate(0)} 20%{transform:translate(-14px,6px)} 40%{transform:translate(12px,-8px)} 60%{transform:translate(-10px,-4px)} 80%{transform:translate(8px,8px)} }
 
-  #three { position: fixed; inset: 0; z-index: 0; }
+  #three { position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; }
   #petals { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
   .petal { position: absolute; top: -40px; animation: fall linear infinite; user-select: none; }
   @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+  .trail { position: fixed; z-index: 120; pointer-events: none; font-size: 16px; animation: trail .8s ease-out forwards; }
+  @keyframes trail { to { transform: translateY(-30px) scale(.3) rotate(120deg); opacity: 0; } }
 
-  main {
-    position: relative; z-index: 2; min-height: 100vh;
-    display: flex; align-items: center; justify-content: center; padding: 20px;
+  /* ---------- верхняя панель ---------- */
+  .topbar {
+    position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 60;
+    width: min(94vw, 900px); display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 8px 16px; border-radius: 999px;
+    background: rgba(255,255,255,.7); backdrop-filter: blur(12px);
+    border: 3px solid #ffb3dc; box-shadow: 0 8px 24px rgba(255,79,163,.25);
   }
-  .card {
-    max-width: 660px; width: 100%;
-    background: rgba(255,255,255,0.86);
-    border: 4px solid #ff9ed2; border-radius: 32px;
-    padding: 32px 26px; text-align: center;
-    box-shadow: 0 10px 40px rgba(255,105,180,.4);
-  }
+  .logo { font-family: "Pacifico", cursive; font-size: 1.25rem; color: var(--pink); white-space: nowrap; }
+  .chip { background: #fff0f8; border: 2px solid #ffb3dc; border-radius: 999px; padding: 5px 14px; font-weight: 900; white-space: nowrap; }
+  .iconbtn { background: #fff; border: 2px solid #ffb3dc; border-radius: 50%; width: 38px; height: 38px; font-size: 1.1rem; cursor: pointer; padding: 0; color: inherit; box-shadow: none; }
 
+  main { position: relative; z-index: 2; width: min(94vw, 900px); margin: 0 auto; padding: 90px 0 40px; display: flex; flex-direction: column; gap: 28px; }
+  .glass {
+    background: rgba(255,255,255,.8); backdrop-filter: blur(10px);
+    border: 4px solid #ff9ed2; border-radius: 32px; padding: 30px 24px;
+    box-shadow: 0 10px 40px rgba(255,105,180,.35); text-align: center;
+  }
   h1 {
-    font-size: clamp(1.7rem, 5vw, 2.6rem);
-    background: linear-gradient(90deg,#ff4fa3,#a45bff,#3fb6ff,#ff4fa3);
-    background-size: 300% 100%;
+    font-family: "Pacifico", cursive; font-weight: 400; line-height: 1.25;
+    font-size: clamp(1.9rem, 6vw, 3.2rem);
+    background: linear-gradient(90deg,#ff4fa3,#a45bff,#3fb6ff,#ff4fa3); background-size: 300% 100%;
     -webkit-background-clip: text; background-clip: text; color: transparent;
-    animation: shine 5s linear infinite; margin-bottom: 10px;
+    animation: shine 5s linear infinite; margin-bottom: 8px;
   }
+  h2 { font-family: "Pacifico", cursive; font-weight: 400; font-size: clamp(1.4rem, 4vw, 2rem); color: var(--pink); margin-bottom: 14px; }
   @keyframes shine { to { background-position: 300% 0; } }
 
-  .sub { font-size: 1.1rem; margin-bottom: 14px; min-height: 3.4em; }
+  .sub { font-size: 1.1rem; margin-bottom: 10px; min-height: 3.2em; }
   .cursor { animation: blink 1s infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 
-  .amount {
-    font-size: clamp(2.6rem, 10vw, 4.4rem); font-weight: bold; color: #ff4fa3;
-    text-shadow: 0 0 12px #fff, 0 0 24px #ffb3dc;
-    animation: pulse 1.2s ease-in-out infinite; margin: 4px 0 4px;
-  }
-  .amount small { display: block; font-size: 1.1rem; color: #a45bff; text-shadow: none; }
-  @keyframes pulse { 50% { transform: scale(1.08); } }
+  .amount { font-size: clamp(3rem, 12vw, 5.5rem); font-weight: 900; color: var(--pink); text-shadow: 0 0 12px #fff, 0 0 26px #ffb3dc; animation: pulse 1.3s ease-in-out infinite; line-height: 1.05; }
+  .amount small { display: block; font-size: 1.1rem; color: var(--violet); text-shadow: none; }
+  @keyframes pulse { 50% { transform: scale(1.06); } }
 
-  .bar { height: 26px; background: #fff0f8; border: 3px solid #ff9ed2; border-radius: 999px; overflow: hidden; margin: 12px auto 4px; max-width: 420px; }
-  .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg,#ff4fa3,#ffb3dc,#a45bff); transition: width 3s ease-out; }
-  .barlabel { font-size: .9rem; margin-bottom: 10px; }
+  .bar { height: 26px; background: #fff0f8; border: 3px solid #ff9ed2; border-radius: 999px; overflow: hidden; margin: 12px auto 6px; max-width: 460px; }
+  .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg,#ff4fa3,#ffb3dc,#a45bff); transition: width .6s ease-out; border-radius: 999px; }
+  #fill { transition: width .35s linear; }
+  .barlabel { font-size: .95rem; margin-bottom: 6px; }
+  .scan { font-size: .9rem; color: var(--violet); font-weight: 900; margin-bottom: 8px; min-height: 1.3em; }
 
-  .award {
-    display: inline-block; background: linear-gradient(135deg,#ffe27a,#ffb347);
-    color: #7a4a00; padding: 8px 18px; border-radius: 999px; font-weight: bold;
-    margin: 8px 0 12px; box-shadow: 0 4px 0 #d08a1f;
-    animation: wiggle 2s ease-in-out infinite;
+  .foldjoke {
+    min-height: 3.4em; max-width: 520px; margin: 4px auto 10px; padding: 10px 16px;
+    background: linear-gradient(135deg,#fff3c4,#ffe0f0); border: 3px dashed #ffb347; border-radius: 20px;
+    font-weight: 900; display: flex; align-items: center; justify-content: center; opacity: .0; transition: opacity .3s;
   }
+  .foldjoke.on { opacity: 1; animation: jpop .5s; }
+  @keyframes jpop { 0%{transform:scale(.6) rotate(-4deg)} 60%{transform:scale(1.08) rotate(2deg)} 100%{transform:scale(1) rotate(0)} }
+
+  .award { display: inline-block; background: linear-gradient(135deg,#ffe27a,#ffb347); color: #7a4a00; padding: 9px 20px; border-radius: 999px; font-weight: 900; margin: 8px 0 14px; box-shadow: 0 4px 0 #d08a1f; animation: wiggle 2s ease-in-out infinite; }
   @keyframes wiggle { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
 
-  ul { list-style: none; text-align: left; margin: 10px auto 20px; max-width: 470px; }
-  li {
-    background: #fff0f8; border-radius: 16px; padding: 8px 14px; margin: 6px 0;
-    opacity: 0; transform: translateX(-30px); animation: slidein .6s forwards;
-  }
-  li:nth-child(1){animation-delay:.3s} li:nth-child(2){animation-delay:.6s}
-  li:nth-child(3){animation-delay:.9s} li:nth-child(4){animation-delay:1.2s}
+  .jokebox { background: #f4ecff; border: 3px solid #d9c6ff; border-radius: 22px; padding: 14px 16px; max-width: 560px; margin: 10px auto 14px; }
+  .jokebox .t { font-size: .8rem; color: var(--violet); font-weight: 900; letter-spacing: .05em; text-transform: uppercase; }
+  #fact { min-height: 3em; display: flex; align-items: center; justify-content: center; margin: 6px 0 8px; transition: opacity .3s; }
+  #fact.fade { opacity: 0; }
+
+  ul.reasons { list-style: none; text-align: left; margin: 8px auto 18px; max-width: 520px; }
+  ul.reasons li { background: #fff0f8; border-radius: 16px; padding: 9px 14px; margin: 6px 0; opacity: 0; transform: translateX(-30px); animation: slidein .6s forwards; }
+  ul.reasons li:nth-child(1){animation-delay:.3s} ul.reasons li:nth-child(2){animation-delay:.6s}
+  ul.reasons li:nth-child(3){animation-delay:.9s} ul.reasons li:nth-child(4){animation-delay:1.2s}
   @keyframes slidein { to { opacity: 1; transform: none; } }
 
+  button { font-family: inherit; font-weight: 900; font-size: 1.05rem; border: none; cursor: pointer; padding: 13px 26px; border-radius: 999px; color: #fff; transition: transform .15s, filter .15s; }
+  button:disabled { filter: grayscale(.8); cursor: not-allowed; opacity: .6; }
+  .btn { background: linear-gradient(135deg,#ff4fa3,#ff8fc8); box-shadow: 0 6px 0 #c72f7d, 0 10px 20px rgba(255,79,163,.45); }
+  .btn:hover:not(:disabled) { transform: scale(1.08) rotate(-1.5deg); }
+  .btn:active:not(:disabled) { transform: translateY(4px); }
+  .btn.blue { background: linear-gradient(135deg,#3fb6ff,#8fd6ff); box-shadow: 0 6px 0 #1e82c0; }
+  .btn.small { padding: 8px 18px; font-size: .95rem; }
   .buttons { display: flex; justify-content: center; align-items: center; gap: 20px; min-height: 80px; flex-wrap: wrap; }
-  button {
-    font-family: inherit; font-size: 1.1rem; border: none; cursor: pointer;
-    padding: 14px 26px; border-radius: 999px; color: #fff; font-weight: bold;
-    transition: transform .15s;
-  }
-  #yes {
-    background: linear-gradient(135deg,#ff4fa3,#ff8fc8);
-    box-shadow: 0 6px 0 #c72f7d, 0 10px 20px rgba(255,79,163,.5);
-  }
-  #yes:hover { transform: scale(1.12) rotate(-2deg); }
-  #yes:active { transform: translateY(4px); }
   #no { background: #9a8fb3; box-shadow: 0 6px 0 #6f6589; white-space: nowrap; }
-  #noSlot { min-width: 150px; min-height: 52px; display: flex; align-items: center; justify-content: center; }
-
-  #thanks { display: none; font-size: 1.25rem; margin-top: 10px; animation: pop .6s ease; }
+  #no.tired { background: #c7b6e8; box-shadow: 0 6px 0 #9d88c9; animation: wobble .6s infinite; }
+  @keyframes wobble { 0%,100%{transform:rotate(-4deg)} 50%{transform:rotate(4deg)} }
+  #noSlot { min-width: 170px; min-height: 52px; display: flex; align-items: center; justify-content: center; }
+  #thanks { display: none; font-size: 1.2rem; margin-top: 6px; animation: pop .6s ease; }
   @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
-  .ps { font-size: .85rem; opacity: .75; margin-top: 16px; }
+  .ps { font-size: .85rem; opacity: .8; margin-top: 14px; }
 
-  .boom { position: fixed; z-index: 10; pointer-events: none; font-size: 2rem; animation: boom 1.6s ease-out forwards; }
+  .boom { position: fixed; z-index: 150; pointer-events: none; font-size: 2rem; animation: boom 1.6s ease-out forwards; }
   @keyframes boom { to { transform: translate(var(--x), var(--y)) rotate(720deg) scale(.4); opacity: 0; } }
 
-  #sad {
-    position: fixed; inset: 0; z-index: 100; display: none;
-    align-items: center; justify-content: center; padding: 20px;
-    background: linear-gradient(180deg, #4a4a78, #2a2a4a);
-    overflow: hidden;
-  }
+  /* ---------- игры ---------- */
+  .tabs { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+  .tab { background: #fff; color: var(--ink); border: 3px solid #ffb3dc; box-shadow: none; padding: 10px 18px; }
+  .tab.active { background: linear-gradient(135deg,#ff4fa3,#a45bff); color: #fff; border-color: transparent; }
+  .panel { display: none; }
+  .panel.active { display: block; animation: slidein .4s forwards; }
+  .hud { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .stage { position: relative; max-width: 640px; margin: 0 auto; }
+  #cg { width: 100%; height: auto; border-radius: 24px; border: 4px solid #ff9ed2; background: linear-gradient(180deg,#fff6fb,#e8d9ff 60%,#c8ecff); touch-action: none; display: block; cursor: none; }
+  .overlay { position: absolute; inset: 0; border-radius: 24px; background: rgba(75,35,119,.72); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 20px; }
+  .overlay.hide { display: none; }
+  .overlay h3 { font-family: "Pacifico", cursive; font-weight: 400; font-size: 1.8rem; }
+  .hint { font-size: .85rem; opacity: .8; margin-top: 8px; }
+
+  .clicker { position: relative; max-width: 560px; margin: 0 auto; }
+  .mochi { position: relative; width: 190px; height: 160px; margin: 14px auto; border-radius: 50% 50% 46% 46% / 58% 58% 42% 42%; padding: 0; border: 4px solid #ff9ed2;
+    background: radial-gradient(circle at 35% 28%, #fff 0 8%, transparent 9%), radial-gradient(circle at 50% 40%, #ffe3f3, #ffb3dc 70%, #ff8fc8);
+    box-shadow: 0 14px 0 #e58ab8, 0 22px 30px rgba(255,79,163,.4); color: #b03a7c; font-size: 1rem; overflow: hidden; }
+  .mochi::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(180deg, transparent 0 26px, rgba(214,90,150,.28) 26px 29px); }
+  .mochi .face { position: relative; font-size: 2.1rem; display: block; margin-top: 30px; }
+  .mochi .blush { position: relative; font-size: .9rem; display: block; margin-top: 4px; }
+  .mochi.squish { animation: squish .25s; }
+  @keyframes squish { 0%{transform:scale(1)} 40%{transform:scale(1.14,.82)} 100%{transform:scale(1)} }
+  .float { position: absolute; pointer-events: none; font-weight: 900; color: var(--pink); font-size: 1.3rem; animation: floatup 1.1s ease-out forwards; text-shadow: 0 0 6px #fff; white-space: nowrap; }
+  @keyframes floatup { to { transform: translateY(-70px); opacity: 0; } }
+  .upgrades { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+
+  .mem { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 420px; margin: 10px auto; }
+  .mcard { aspect-ratio: 1; font-size: 2rem; padding: 0; background: linear-gradient(135deg,#a45bff,#ff8fc8); box-shadow: 0 5px 0 #7a3fc0; border-radius: 18px; transition: transform .25s; }
+  .mcard.open { background: #fff; color: #000; transform: rotateY(180deg) scaleX(-1); box-shadow: 0 5px 0 #ffb3dc; }
+  .mcard.done { background: #d8ffe3; box-shadow: 0 5px 0 #7fd49a; }
+
+  /* ---------- копилка и ачивки ---------- */
+  #kkbar { max-width: 620px; height: 34px; }
+  #kkText { font-weight: 900; font-size: 1.2rem; margin: 6px 0 12px; }
+  #sendMsg { margin-top: 12px; font-size: 1.1rem; min-height: 1.4em; }
+  .badges { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .badge { background: #f1ecf7; border-radius: 18px; padding: 12px; filter: grayscale(1); opacity: .55; transition: .4s; text-align: left; }
+  .badge b { display: block; }
+  .badge small { opacity: .85; }
+  .badge.on { filter: none; opacity: 1; background: linear-gradient(135deg,#fff3c4,#ffe0f0); box-shadow: 0 4px 0 #e8b34a; }
+  footer { text-align: center; padding: 10px; font-size: .9rem; opacity: .85; }
+
+  #toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 140px); z-index: 200; background: #fff; border: 3px solid #ffb347; border-radius: 999px; padding: 12px 22px; font-weight: 900; box-shadow: 0 8px 24px rgba(0,0,0,.25); transition: transform .4s; max-width: 92vw; text-align: center; }
+  #toast.show { transform: translate(-50%, 0); }
+
+  /* ---------- грустный экран ---------- */
+  #sad { position: fixed; inset: 0; z-index: 300; display: none; align-items: center; justify-content: center; padding: 20px; background: linear-gradient(180deg, #4a4a78, #1f1f3a); overflow: hidden; }
   #sad.show { display: flex; animation: fadein .5s ease; }
   @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
-  .sadcard {
-    position: relative; z-index: 2; max-width: 620px; width: 100%;
-    background: rgba(255,255,255,.12); border: 3px dashed #ff9ed2;
-    border-radius: 28px; padding: 30px 24px; text-align: center; color: #ffe3f3;
-    max-height: 92vh; overflow-y: auto;
-  }
-  .sadcard h2 { font-size: clamp(1.6rem, 5vw, 2.3rem); margin-bottom: 14px; color: #ffb3dc; }
+  .sadcard { position: relative; z-index: 2; max-width: 620px; width: 100%; background: rgba(255,255,255,.12); border: 3px dashed #ff9ed2; border-radius: 28px; padding: 28px 24px; text-align: center; color: #ffe3f3; max-height: 92vh; overflow-y: auto; }
+  .sadcard h2 { color: #ffb3dc; }
   .sadcard p { margin: 10px 0; line-height: 1.5; }
-  .sadcard .big { font-size: 4rem; animation: shake 1.2s infinite; display: block; }
-  @keyframes shake { 0%,100%{transform:rotate(-6deg)} 50%{transform:rotate(6deg)} }
-  #back { margin-top: 18px; background: linear-gradient(135deg,#ff4fa3,#ff8fc8); box-shadow: 0 6px 0 #c72f7d; }
+  .sadcard .big { font-size: 4rem; animation: sway 1.2s infinite; display: block; }
+  @keyframes sway { 0%,100%{transform:rotate(-6deg)} 50%{transform:rotate(6deg)} }
   .tear { position: absolute; top: -40px; font-size: 24px; animation: rain linear infinite; z-index: 1; }
   @keyframes rain { to { transform: translateY(110vh); } }
 </style>
@@ -125,19 +174,33 @@
 <canvas id="three"></canvas>
 <div id="petals"></div>
 
+<div class="topbar">
+  <div class="logo">🍡 Хирон×100</div>
+  <div class="chip">💰 <span id="kkTop">0</span> / 50 кк</div>
+  <button class="iconbtn" id="snd" title="Звук">🔊</button>
+</div>
+
 <main>
-  <div class="card">
+  <!-- ГЕРОЙ -->
+  <section class="glass" id="hero">
     <h1>🎉 Поздравляем, Хирон! 🎉</h1>
     <div class="sub"><span id="typed"></span><span class="cursor">|</span></div>
 
     <div class="amount"><span id="counter">0</span> складок!<small>новый рекорд мягкости 🍡</small></div>
-
     <div class="bar"><div id="fill"></div></div>
     <div class="barlabel">Уровень мягкости: <b id="pct">0</b>%</div>
+    <div class="scan" id="scan">🔍 Сертифицированный сканер складок запускается…</div>
+    <div class="foldjoke" id="foldJoke"></div>
 
     <div class="award">🏆 Достижение разблокировано: «Сотня складок»</div>
 
-    <ul>
+    <div class="jokebox">
+      <div class="t">📰 Научные факты о складках</div>
+      <div id="fact">Загрузка фактов… (кентавры сообщают, что это не быстро)</div>
+      <button class="btn small" id="moreJoke">🎲 Ещё шутку</button>
+    </div>
+
+    <ul class="reasons">
       <li>🍡 Хирон теперь самый мягкий и обнимабельный кентавр</li>
       <li>🎀 Каждая складка это ещё одна причина любить сенпая</li>
       <li>🐴 Копытца топ-топ, складочки буль-буль</li>
@@ -145,182 +208,568 @@
     </ul>
 
     <div class="buttons">
-      <button id="yes">Спасибо, Binter! 💕</button>
+      <button class="btn" id="yes">Спасибо, Binter! 💕</button>
       <div id="noSlot"><button id="no">Это не я 😤</button></div>
     </div>
-
     <div id="thanks">Аригатооо, Хирон-сенпай!!! 🎉💖 Binter ждёт свои 50кк в честь праздника~ Кавайиии!</div>
-    <div class="ps">P.S. Кнопка «Это не я» очень застенчивая и боится курсора 🥺👉👈</div>
-  </div>
+    <div class="ps">P.S. Кнопка «Это не я» очень застенчивая, попробуй её поймать 🥺👉👈 <span id="dodgeInfo"></span></div>
+  </section>
+
+  <!-- ИГРЫ -->
+  <section class="glass" id="games">
+    <h2>🎮 Игровая зона</h2>
+    <p style="margin-bottom:14px">Играй и копи ресы для Binter'а! Копилка внизу ↓</p>
+    <div class="tabs">
+      <button class="tab active" data-tab="catch">🪙 Лови ресы</button>
+      <button class="tab" data-tab="clicker">🍡 Кликер складок</button>
+      <button class="tab" data-tab="memory">🧠 Мемори</button>
+    </div>
+
+    <!-- Игра 1 -->
+    <div class="panel active" id="p-catch">
+      <div class="hud">
+        <div class="chip">⭐ <span id="gScore">0</span></div>
+        <div class="chip">❤️ <span id="gLives">3</span></div>
+        <div class="chip">⏱️ <span id="gTime">30</span></div>
+      </div>
+      <div class="stage">
+        <canvas id="cg" width="640" height="400"></canvas>
+        <div class="overlay" id="gOver">
+          <h3 id="gTitle">Лови ресы!</h3>
+          <div id="gText">🪙 +1 · 💎 +5 · 💣 −1 жизнь<br>Двигай мышкой / пальцем или стрелками ← →</div>
+          <button class="btn" id="gStart">▶ Играть</button>
+        </div>
+      </div>
+      <div class="hint">Набранные очки превращаются в кк в копилке 💰</div>
+    </div>
+
+    <!-- Игра 2 -->
+    <div class="panel" id="p-clicker">
+      <div class="clicker" id="clicker">
+        <div class="hud">
+          <div class="chip">🍡 Складки: <span id="cf">0</span></div>
+          <div class="chip">👆 За клик: <span id="cpc">1</span></div>
+          <div class="chip">🐌 Помощники: +<span id="cps">0</span> / 2 сек</div>
+        </div>
+        <button class="mochi" id="mochi"><span class="face" id="face">•ᴗ•</span><span class="blush">///</span></button>
+        <div class="bar"><div id="cbar"></div></div>
+        <div class="barlabel">До «Сотни складок»: <b id="ctotal">0</b> / 100</div>
+        <div class="upgrades">
+          <button class="btn blue" id="up1">🧤 Мягкие лапки</button>
+          <button class="btn blue" id="up2">🐴 Кентавр-помощник</button>
+          <button class="btn blue" id="up3">🍰 Тортик</button>
+        </div>
+        <div class="hint">За сотню складок: +10 кк в копилку!</div>
+      </div>
+    </div>
+
+    <!-- Игра 3 -->
+    <div class="panel" id="p-memory">
+      <div class="hud">
+        <div class="chip">👣 Ходы: <span id="mMoves">0</span></div>
+        <button class="btn small" id="mReset">🔄 Заново</button>
+      </div>
+      <div class="mem" id="mem"></div>
+      <div class="hint">Победа = +10 кк в копилку!</div>
+    </div>
+  </section>
+
+  <!-- КОПИЛКА -->
+  <section class="glass" id="wish">
+    <h2>💰 Копилка 50кк для Binter'а</h2>
+    <p>Когда шкала заполнится, Хирон «официально обязан» скинуть 50кк 😸</p>
+    <div class="bar" id="kkbar"><div id="kkFill"></div></div>
+    <div id="kkText">0 / 50 кк</div>
+    <button class="btn" id="send" disabled>📨 Отправить заявку Хирону</button>
+    <div id="sendMsg"></div>
+  </section>
+
+  <!-- АЧИВКИ -->
+  <section class="glass" id="ach">
+    <h2>🏆 Достижения</h2>
+    <div class="badges" id="badges"></div>
+  </section>
+
+  <footer>Сделано с любовью для Хирона от Binter'а 💖 Уву~ <br><small>Ни одна складка при создании сайта не пострадала 🍡</small></footer>
 </main>
 
+<div id="toast"></div>
+
+<!-- ГРУСТНЫЙ ЭКРАН -->
 <div id="sad">
   <div class="sadcard">
     <span class="big">😭</span>
-    <h2>Хирон… ты нажал «Это не я»… 💔</h2>
+    <h2>Хирон… ты поймал «Это не я»… 💔</h2>
     <p>Binter сидит в уголочке, обнимает подушечку и тихонько шмыгает носиком… хнык~ 😿</p>
     <p>Я так старался, делал поздравление, считал складочки, а ты взял и поймал эту кнопку… 🥺</p>
     <p>Сто складок это не позор, а достижение! Мягкие кентавры самые лучшие на свете 🍡✨</p>
     <p>Binter теперь будет сидеть тут, смотреть на дождик 🌧️ и писать грустные «ня» в пустоту… ня… (｡•́︿•̀｡)</p>
     <p><b>Binter очень обиделся. Но поздравлять всё равно не перестанет. 💢😿</b></p>
-    <button id="back">Ладно, прости, спасибо Binter'у 💖</button>
+    <button class="btn" id="back">Ладно, прости, спасибо Binter'у 💖</button>
   </div>
 </div>
 
 <script>
 (function () {
-  /* ---------- Печатающийся текст ---------- */
-  var phrases = [
-    'Охаё, Хирон-сенпай~ 🌸 Уву~',
-    'Это Binter! У меня для тебя праздничные новости 🥳',
-    'У тебя теперь ЦЕЛЫХ 100 складок! Сугоооой! 🎊'
+  function $(id) { return document.getElementById(id); }
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+  /* ================= ЗВУК ================= */
+  var actx = null, soundOn = true;
+  function beep(f, d, type, vol) {
+    if (!soundOn) return;
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      var o = actx.createOscillator(), g = actx.createGain();
+      o.type = type || 'sine'; o.frequency.value = f; g.gain.value = vol || 0.05;
+      o.connect(g); g.connect(actx.destination); o.start();
+      g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + d);
+      o.stop(actx.currentTime + d);
+    } catch (e) {}
+  }
+  function jingle() { [523, 659, 784, 1046].forEach(function (f, i) { setTimeout(function () { beep(f, .25, 'triangle', .06); }, i * 110); }); }
+  $('snd').addEventListener('click', function () { soundOn = !soundOn; this.textContent = soundOn ? '🔊' : '🔇'; });
+
+  /* ================= УТИЛИТЫ ================= */
+  function confetti(count) {
+    var set = ['🎉', '🎊', '💖', '✨', '🍡', '🎀', '🌸', '🥳', '🪙'];
+    for (var i = 0; i < count; i++) {
+      var b = document.createElement('div');
+      b.className = 'boom'; b.textContent = set[i % set.length];
+      b.style.left = window.innerWidth / 2 + 'px'; b.style.top = window.innerHeight / 2 + 'px';
+      var a = Math.random() * Math.PI * 2, d = 150 + Math.random() * 450;
+      b.style.setProperty('--x', Math.cos(a) * d + 'px'); b.style.setProperty('--y', Math.sin(a) * d + 'px');
+      document.body.appendChild(b);
+      (function (el) { setTimeout(function () { el.remove(); }, 1700); })(b);
+    }
+  }
+  var toastT;
+  function toast(t) {
+    var el = $('toast'); el.textContent = t; el.classList.add('show');
+    clearTimeout(toastT); toastT = setTimeout(function () { el.classList.remove('show'); }, 3200);
+  }
+
+  /* ================= ШУТКИ ================= */
+  var JOKES = [
+    '🍡 Факт: если сложить все складки Хирона в одну линию, получится очень длинная линия. Мы не проверяли.',
+    '🐴 Кентавры бывают двух типов: быстрые и очень мягкие. Хирон выбрал «мягкий + DLC».',
+    '📐 Математики подтверждают: 100 складок = 10 × 10. Идеальный квадрат мягкости.',
+    '🛏️ Подушки в магазине обиделись: у Хирона свои встроенные, да ещё и с подогревом.',
+    '🎯 Меч Хирона больше не промахивается, он просто теряется среди складочек. Ищем вместе.',
+    '🍩 Складки не считаются калориями, если они достижения. Так сказал Binter.',
+    '🧘 Хирон не толстеет, он «накапливает ауру». Каждая складка это слой силы.',
+    '📏 Когда Хирон вздыхает, складочки делают волну, как на стадионе. 🌊',
+    '🔔 Срочно: в Красную книгу мягкости внесена новая запись. Имя: Хирон.',
+    '🚪 Хирон проходит в двери боком. Двери рады: они тоже любят обнимашки.',
+    '🎮 Статистика: +100 к мягкости, +100 к обаянию, −100 к умению быстро вставать с дивана.',
+    '🏋️ Хирон не пропускает день ног. Ног у него четыре, так что тренировок у него ещё больше.',
+    '📦 Amazon хочет продавать Хирона как «наполнитель для кресла-мешка». Binter отказал.',
+    '🐌 Складки считаются медленно, потому что их слишком много. Калькулятор просит передышку.',
+    '💤 Говорят, если погладить складочку, Хирон мурлычет. Проверено. Ну, почти.',
+    '🍰 Идея подарка на день рождения: торт. Идея подарка в спукитайм: тоже торт. Вы поняли.'
   ];
-  var typed = document.getElementById('typed');
-  var pi = 0, ci = 0, del = false;
+  var FOLD_JOKES = {
+    5: '5 складок: разминка. Кентавр ещё в тапочках 🥿',
+    10: '10! Первая дюжина без двух. Счёт идёт уверенно 🧮',
+    20: '20! Пояс пишет заявление об увольнении 👖',
+    30: '30! Хирон сложился, как оригами 📄🐴',
+    42: '42: ответ на главный вопрос жизни, вселенной и ужина 🌌',
+    50: 'Половина! Складки начали складываться в складки 🌀',
+    60: '60! Мягкость превысила ГОСТ. ГОСТ плачет 📜',
+    69: '69! Nice 😎 (и ничего больше, сенпай)',
+    75: '75! Хирона теперь можно использовать вместо дивана 🛋️',
+    85: '85! Учёные в шоке, а кентавр в тапочках 🥿🔬',
+    90: '90! Пуговицы на жилетке подписали заявление об отпуске 🔘',
+    99: '99… Тихо… Следующая складка будет ЛЕГЕНДАРНОЙ 😳'
+  };
+  var FOLD_END = '🍡 СТО! Складки официально внесены в Красную книгу мягкости 📕✨';
+
+  /* факты по кругу */
+  var factEl = $('fact'), factIdx = Math.floor(Math.random() * JOKES.length);
+  function showFact(t) {
+    factEl.classList.add('fade');
+    setTimeout(function () { factEl.textContent = t; factEl.classList.remove('fade'); }, 300);
+  }
+  setTimeout(function () { showFact(JOKES[factIdx]); }, 600);
+  setInterval(function () { factIdx = (factIdx + 1) % JOKES.length; showFact(JOKES[factIdx]); }, 7000);
+  $('moreJoke').addEventListener('click', function () {
+    var j = pick(JOKES); showFact(j); beep(500 + Math.random() * 300, .1, 'triangle', .05);
+    jokesRead++; if (jokesRead >= 5) unlock('jokes');
+  });
+  var jokesRead = 0;
+
+  /* ================= ТЕКСТ, ЛЕПЕСТКИ, ШЛЕЙФ ================= */
+  var phrases = ['Охаё, Хирон-сенпай~ 🌸 Уву~', 'Это Binter! У меня для тебя праздничные новости 🥳', 'У тебя теперь ЦЕЛЫХ 100 складок! Сугоооой! 🎊', 'Калькулятор уже просит пощады, но мы считаем 🐌'];
+  var typed = $('typed'), pi = 0, ci = 0, del = false;
   (function type() {
-    var p = phrases[pi];
-    typed.textContent = p.slice(0, ci);
+    var p = phrases[pi]; typed.textContent = p.slice(0, ci);
     if (!del && ci < p.length) { ci++; setTimeout(type, 60); }
     else if (!del) { del = true; setTimeout(type, 1800); }
     else if (ci > 0) { ci--; setTimeout(type, 25); }
     else { del = false; pi = (pi + 1) % phrases.length; setTimeout(type, 400); }
   })();
 
-  /* ---------- Счётчик складок ---------- */
-  var counter = document.getElementById('counter');
-  var pct = document.getElementById('pct');
-  var fill = document.getElementById('fill');
-  setTimeout(function () { fill.style.width = '100%'; }, 300);
-  var start = null;
-  function tick(ts) {
-    if (!start) start = ts;
-    var k = Math.min((ts - start) / 3000, 1);
-    var v = Math.round(100 * (1 - Math.pow(1 - k, 3)));
-    counter.textContent = v;
-    pct.textContent = v;
-    if (k < 1) requestAnimationFrame(tick);
-    else confetti(50);
-  }
-  requestAnimationFrame(tick);
-
-  /* ---------- Конфетти ---------- */
-  function confetti(count) {
-    var set = ['🎉', '🎊', '💖', '✨', '🍡', '🎀', '🌸', '🥳'];
-    for (var i = 0; i < count; i++) {
-      var b = document.createElement('div');
-      b.className = 'boom';
-      b.textContent = set[i % set.length];
-      b.style.left = window.innerWidth / 2 + 'px';
-      b.style.top = window.innerHeight / 2 + 'px';
-      var a = Math.random() * Math.PI * 2, d = 150 + Math.random() * 450;
-      b.style.setProperty('--x', Math.cos(a) * d + 'px');
-      b.style.setProperty('--y', Math.sin(a) * d + 'px');
-      document.body.appendChild(b);
-      (function (el) { setTimeout(function () { el.remove(); }, 1700); })(b);
-    }
-  }
-
-  /* ---------- Лепестки ---------- */
-  var petals = document.getElementById('petals');
-  var emojis = ['🌸', '💖', '✨', '🎀', '🎈', '🍓'];
-  for (var i = 0; i < 28; i++) {
+  var petals = $('petals'), emojis = ['🌸', '💖', '✨', '🎀', '🎈', '🍓', '🍡'];
+  for (var i = 0; i < 26; i++) {
     var p = document.createElement('div');
-    p.className = 'petal';
-    p.textContent = emojis[i % emojis.length];
-    p.style.left = Math.random() * 100 + 'vw';
-    p.style.fontSize = 14 + Math.random() * 22 + 'px';
-    p.style.animationDuration = 6 + Math.random() * 8 + 's';
-    p.style.animationDelay = -Math.random() * 12 + 's';
+    p.className = 'petal'; p.textContent = emojis[i % emojis.length];
+    p.style.left = Math.random() * 100 + 'vw'; p.style.fontSize = 14 + Math.random() * 22 + 'px';
+    p.style.animationDuration = 6 + Math.random() * 8 + 's'; p.style.animationDelay = -Math.random() * 12 + 's';
     petals.appendChild(p);
   }
 
-  /* ---------- Кнопка «Это не я» ---------- */
-  var no = document.getElementById('no');
-  var slot = document.getElementById('noSlot');
-  var texts = ['Это не я 😤', 'Не надо~ 🥺', 'Ну пожалуйста!', 'Не лови меня 😭', 'Сенпай!!', 'Кавайно же!', 'Хихи, мимо~ 🎀'];
-  var n = 0, fled = false;
+  var lastTrail = 0, trailSet = ['✨', '💖', '⭐', '🌸'];
+  window.addEventListener('pointermove', function (e) {
+    if (e.pointerType === 'touch') return;
+    var now = performance.now(); if (now - lastTrail < 45) return; lastTrail = now;
+    var s = document.createElement('div'); s.className = 'trail';
+    s.textContent = trailSet[Math.floor(Math.random() * trailSet.length)];
+    s.style.left = e.clientX + 'px'; s.style.top = e.clientY + 'px';
+    document.body.appendChild(s); setTimeout(function () { s.remove(); }, 800);
+  });
+
+  /* ================= ДОСТИЖЕНИЯ И КОПИЛКА ================= */
+  var ACH = [
+    { id: 'thanks', ic: '💕', t: 'Вежливый', d: 'Поблагодарить Binter' },
+    { id: 'wait', ic: '🐌', t: 'Терпила', d: 'Дождаться, пока сосчитаются все 100 складок' },
+    { id: 'jokes', ic: '🎲', t: 'Юморист', d: 'Прочитать 5 шуток кнопкой «Ещё шутку»' },
+    { id: 'catch1', ic: '🪙', t: 'Первая монетка', d: 'Поймать хоть одну монету' },
+    { id: 'catch25', ic: '🧺', t: 'Ловец ресов', d: 'Набрать 25+ очков в «Лови ресы»' },
+    { id: 'bomb', ic: '🏋️', t: 'Гиря в лицо', d: 'Поймать бомбу' },
+    { id: 'massage', ic: '💆', t: 'Мочи-массажист', d: 'Кликнуть по мочи 50 раз' },
+    { id: 'hundred', ic: '🍡', t: 'Сотня складок', d: 'Накликать 100 складок' },
+    { id: 'memory', ic: '🧠', t: 'Мемори-мастер', d: 'Пройти мемори' },
+    { id: 'caught', ic: '😭', t: 'Жестокий кентавр', d: 'Поймать кнопку «Это не я»' },
+    { id: 'full', ic: '💰', t: 'Копилка полна', d: 'Накопить 50 кк' }
+  ];
+  var done = {};
+  var badges = $('badges');
+  ACH.forEach(function (a) {
+    var d = document.createElement('div'); d.className = 'badge'; d.id = 'b-' + a.id;
+    d.innerHTML = '<b>' + a.ic + ' ' + a.t + '</b><small>' + a.d + '</small>';
+    badges.appendChild(d);
+  });
+  function unlock(id) {
+    if (done[id]) return; done[id] = true;
+    var a = ACH.filter(function (x) { return x.id === id; })[0];
+    $('b-' + id).classList.add('on');
+    toast('🏆 Достижение: ' + a.t + '!'); jingle();
+  }
+
+  var kk = 0, GOAL = 50;
+  function addKK(v) {
+    if (v <= 0) return;
+    kk = Math.min(GOAL, kk + v);
+    var shown = Math.floor(kk);
+    $('kkTop').textContent = shown; $('kkText').textContent = shown + ' / ' + GOAL + ' кк';
+    $('kkFill').style.width = (kk / GOAL * 100) + '%';
+    if (kk >= GOAL) {
+      unlock('full'); $('send').disabled = false;
+      $('sendMsg').textContent = 'Копилка полна! Теперь можно слать заявку 🥳';
+      confetti(60);
+    }
+  }
+  var sendCount = 0;
+  $('send').addEventListener('click', function () {
+    var msgs = [
+      '📨 Заявка улетела Хирону! Ждём 50кк, сенпай~ 💖',
+      '📨 Хирон получил заявку и сделал вид, что спит 😴',
+      '📨 Заявка отправлена голубем. Голубь съел печеньку и потерялся 🕊️🍪',
+      '📨 Хирон читает заявку… печатает… перестал печатать… 👀'
+    ];
+    $('sendMsg').textContent = msgs[sendCount % msgs.length]; sendCount++;
+    confetti(80); jingle();
+  });
+
+  /* ================= ПОДСЧЁТ СКЛАДОК (МЕДЛЕННЫЙ) ================= */
+  var cnt = 0, jokeEl = $('foldJoke');
+  var scanMsgs = ['🔍 Считаем складки… не мешайте кентавру дышать', '🧮 Счётчик вспотел, но держится', '📏 Измеряем мягкость линейкой и любовью', '🔬 Учёные пересчитывают вручную'];
+  function showFoldJoke(t) {
+    jokeEl.classList.remove('on'); void jokeEl.offsetWidth;
+    jokeEl.textContent = t; jokeEl.classList.add('on');
+  }
+  function foldStep() {
+    cnt++;
+    $('counter').textContent = cnt; $('pct').textContent = cnt; $('fill').style.width = cnt + '%';
+    beep(300 + cnt * 6, .05, 'sine', .025);
+    if (cnt % 25 === 0 && cnt < 100) $('scan').textContent = pick(scanMsgs);
+    if (cnt >= 100) {
+      showFoldJoke(FOLD_END); $('scan').textContent = '✅ Подсчёт завершён. Калькулятор ушёл пить чай 🍵';
+      confetti(60); jingle(); unlock('wait'); return;
+    }
+    var j = FOLD_JOKES[cnt];
+    if (j) { showFoldJoke(j); beep(880, .15, 'triangle', .05); setTimeout(foldStep, 1900); }
+    else setTimeout(foldStep, 110 + Math.random() * 100);
+  }
+  $('scan').textContent = pick(scanMsgs);
+  setTimeout(foldStep, 1200);
+
+  /* ================= ТАБЫ ================= */
+  var tabs = document.querySelectorAll('.tab');
+  Array.prototype.forEach.call(tabs, function (t) {
+    t.addEventListener('click', function () {
+      Array.prototype.forEach.call(tabs, function (x) { x.classList.remove('active'); });
+      Array.prototype.forEach.call(document.querySelectorAll('.panel'), function (x) { x.classList.remove('active'); });
+      t.classList.add('active'); $('p-' + t.getAttribute('data-tab')).classList.add('active');
+      beep(660, .1, 'square', .03);
+    });
+  });
+
+  /* ================= ИГРА 1: ЛОВИ РЕСЫ ================= */
+  var cg = $('cg'), ctx = cg.getContext('2d');
+  var G = { run: false, score: 0, lives: 3, time: 30, items: [], px: 320, last: 0, spawn: 0, coins: 0 };
+  var keys = { l: false, r: false };
+  var bombJokes = ['💣 Это была гиря из спортзала Хирона!', '💣 Бомба! Но она мягкая, потому что рядом складки 🍡', '💣 Бум! Хирон сказал «упс»', '💣 Бомба с начинкой из невыполненных обещаний'];
+  var endTitlesBad = ['Бомбы победили 💣', 'Корзинка в нокауте 🧺💫', 'Гири одержали победу 🏋️'];
+  var endTitlesOk = ['Время вышло! ⏰', 'Хирон просит перерыв на перекус 🍰', 'Корзинка устала и легла на диван 🛋️'];
+
+  function startCatch() {
+    G.run = true; G.score = 0; G.lives = 3; G.time = 30; G.items = []; G.spawn = 0; G.coins = 0;
+    G.last = performance.now(); $('gOver').classList.add('hide'); hudCatch();
+    requestAnimationFrame(loop);
+  }
+  function hudCatch() { $('gScore').textContent = G.score; $('gLives').textContent = G.lives; $('gTime').textContent = Math.ceil(G.time); }
+  function endCatch(why) {
+    G.run = false;
+    var gain = Math.max(0, G.score);
+    $('gTitle').textContent = why === 'dead' ? pick(endTitlesBad) : pick(endTitlesOk);
+    var extra = gain === 0 ? '<br>Ноль очков. Даже складки считаются лучше 😸' : gain >= 25 ? '<br>Вау! Binter аплодирует стоя 👏' : '';
+    $('gText').innerHTML = 'Очки: <b>' + G.score + '</b> → в копилку <b>+' + gain + ' кк</b> 💰' + extra;
+    $('gStart').textContent = '🔁 Ещё раз';
+    $('gOver').classList.remove('hide');
+    if (G.score >= 25) unlock('catch25');
+    addKK(gain); if (gain > 0) jingle();
+  }
+  function loop(ts) {
+    if (!G.run) return;
+    var dt = Math.min((ts - G.last) / 1000, 0.05); G.last = ts;
+    G.time -= dt;
+    if (G.time <= 0) { G.time = 0; hudCatch(); draw(); endCatch('time'); return; }
+    if (keys.l) G.px -= 460 * dt;
+    if (keys.r) G.px += 460 * dt;
+    G.px = Math.max(40, Math.min(600, G.px));
+
+    G.spawn -= dt;
+    if (G.spawn <= 0) {
+      G.spawn = Math.max(0.22, 0.7 - (30 - G.time) * 0.014);
+      var r = Math.random(), type = r < 0.6 ? 'coin' : r < 0.72 ? 'gem' : 'bomb';
+      G.items.push({ x: rnd(30, 610), y: -30, vy: rnd(130, 240) + (30 - G.time) * 5, type: type });
+    }
+    for (var i = G.items.length - 1; i >= 0; i--) {
+      var it = G.items[i]; it.y += it.vy * dt;
+      if (it.y > 330 && it.y < 385 && Math.abs(it.x - G.px) < 55) {
+        if (it.type === 'coin') { G.score += 1; G.coins++; if (G.coins === 1) unlock('catch1'); beep(880, .08, 'triangle', .05); }
+        else if (it.type === 'gem') { G.score += 5; beep(1175, .15, 'triangle', .06); if (Math.random() < .3) toast('💎 Блестяшка! Хирон завидует'); }
+        else {
+          G.lives--; beep(120, .3, 'sawtooth', .07); unlock('bomb'); toast(pick(bombJokes));
+          if (G.lives <= 0) { G.items.splice(i, 1); hudCatch(); draw(); endCatch('dead'); return; }
+        }
+        G.items.splice(i, 1);
+      } else if (it.y > 430) G.items.splice(i, 1);
+    }
+    hudCatch(); draw(); requestAnimationFrame(loop);
+  }
+  function draw() {
+    ctx.clearRect(0, 0, 640, 400);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    for (var i = 0; i < G.items.length; i++) {
+      var it = G.items[i];
+      ctx.font = '38px serif';
+      ctx.fillText(it.type === 'coin' ? '🪙' : it.type === 'gem' ? '💎' : '💣', it.x, it.y);
+    }
+    ctx.font = '64px serif'; ctx.fillText('🧺', G.px, 360);
+  }
+  draw();
+  $('gStart').addEventListener('click', startCatch);
+  cg.addEventListener('pointermove', function (e) {
+    var r = cg.getBoundingClientRect(); G.px = Math.max(40, Math.min(600, (e.clientX - r.left) * cg.width / r.width));
+  });
+  window.addEventListener('keydown', function (e) {
+    var k = e.key;
+    if (k === 'ArrowLeft' || k === 'a' || k === 'A') { keys.l = true; if (G.run) e.preventDefault(); }
+    if (k === 'ArrowRight' || k === 'd' || k === 'D') { keys.r = true; if (G.run) e.preventDefault(); }
+  });
+  window.addEventListener('keyup', function (e) {
+    var k = e.key;
+    if (k === 'ArrowLeft' || k === 'a' || k === 'A') keys.l = false;
+    if (k === 'ArrowRight' || k === 'd' || k === 'D') keys.r = false;
+  });
+
+  /* ================= ИГРА 2: КЛИКЕР ================= */
+  var C = { folds: 0, total: 0, cpc: 1, cps: 0, u1: 15, u2: 40, u3: 120, rewarded: false, clicks: 0 };
+  var faces = ['•ᴗ•', '>ᴗ<', '^ω^', 'ᵔᴥᵔ', '•̀ᴗ•́', '(≧▽≦)', '-ω-'];
+  var clickWords = ['буль!', 'мяф!', 'уву~', 'ня!', 'мягко!', 'пыф!', 'чпок!', 'хнык (от счастья)', '🍡', 'складочка!'];
+  var clickMiles = {
+    25: '🍡 25 складок! Мочи начинает хихикать',
+    50: '🍡 Полпути! Мочи просит перекур',
+    75: '🍡 75! Мочи уже не влезает в рамку'
+  };
+  function hudClicker() {
+    $('cf').textContent = C.folds; $('cpc').textContent = C.cpc; $('cps').textContent = C.cps;
+    $('ctotal').textContent = Math.min(100, C.total); $('cbar').style.width = Math.min(100, C.total) + '%';
+    $('up1').textContent = '🧤 Мягкие лапки +1 (' + C.u1 + ')';
+    $('up2').textContent = '🐴 Кентавр-помощник +1/2сек (' + C.u2 + ')';
+    $('up3').textContent = '🍰 Тортик +5 за клик (' + C.u3 + ')';
+    $('up1').disabled = C.folds < C.u1; $('up2').disabled = C.folds < C.u2; $('up3').disabled = C.folds < C.u3;
+  }
+  function gainFolds(n) {
+    var before = C.total;
+    C.folds += n; C.total += n;
+    for (var m in clickMiles) { if (before < +m && C.total >= +m) toast(clickMiles[m]); }
+    if (C.total >= 100 && !C.rewarded) { C.rewarded = true; unlock('hundred'); addKK(10); confetti(70); toast('🍡 СОТНЯ СКЛАДОК! +10 кк. Хирон одобряет 👍'); }
+    hudClicker();
+  }
+  $('mochi').addEventListener('click', function (e) {
+    var m = this; m.classList.remove('squish'); void m.offsetWidth; m.classList.add('squish');
+    $('face').textContent = pick(faces);
+    C.clicks++; if (C.clicks >= 50) unlock('massage');
+    gainFolds(C.cpc); beep(300 + Math.random() * 300, .08, 'sine', .06);
+    var box = $('clicker').getBoundingClientRect();
+    var f = document.createElement('div'); f.className = 'float'; f.textContent = '+' + C.cpc + ' ' + pick(clickWords);
+    f.style.left = (e.clientX - box.left - 30) + 'px'; f.style.top = (e.clientY - box.top - 20) + 'px';
+    if (e.detail === 0) { f.style.left = '40%'; f.style.top = '40%'; }
+    $('clicker').appendChild(f); setTimeout(function () { f.remove(); }, 1100);
+  });
+  var upMsgs1 = ['🧤 Лапки стали мягче. Хирон завидует', '🧤 Теперь гладим профессионально'];
+  var upMsgs2 = ['🐴 Помощник пришёл. Он ленивый, но милый', '🐴 Кентавр-помощник: работает, когда вспоминает'];
+  var upMsgs3 = ['🍰 Тортик! Складки растут как на дрожжах', '🍰 Хирон сказал «только один кусочек» (враньё)'];
+  $('up1').addEventListener('click', function () { if (C.folds >= C.u1) { C.folds -= C.u1; C.cpc++; C.u1 = Math.ceil(C.u1 * 1.8); beep(700, .15, 'triangle', .06); toast(pick(upMsgs1)); hudClicker(); } });
+  $('up2').addEventListener('click', function () { if (C.folds >= C.u2) { C.folds -= C.u2; C.cps++; C.u2 = Math.ceil(C.u2 * 1.9); beep(500, .15, 'triangle', .06); toast(pick(upMsgs2)); hudClicker(); } });
+  $('up3').addEventListener('click', function () { if (C.folds >= C.u3) { C.folds -= C.u3; C.cpc += 5; C.u3 = Math.ceil(C.u3 * 2.2); beep(400, .2, 'triangle', .06); toast(pick(upMsgs3)); hudClicker(); } });
+  setInterval(function () { if (C.cps > 0) gainFolds(C.cps); }, 2000);
+  hudClicker();
+
+  /* ================= ИГРА 3: МЕМОРИ ================= */
+  var icons = ['🍡', '🪙', '💖', '🎀', '🐴', '⚔️', '🍓', '🌸'];
+  var deck = [], first = null, firstBtn = null, lock = false, moves = 0, matched = 0;
+  var memFails = ['🧠 Не то. Но ты близко (нет)', '🧠 Хирон бы запомнил, если бы там был торт', '🧠 Мимо! Карточки хихикают', '🧠 Ой. Бывает. Почти у всех'];
+  var memWins = ['🧠 Победа! +10 кк. Память как у слона (у мягкого)', '🧠 Победа! +10 кк. Хирон аплодирует копытами 👏', '🧠 Мемори пройдено! +10 кк и уважение'];
+  function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function buildMem() {
+    deck = shuffle(icons.concat(icons)); first = null; firstBtn = null; lock = false; moves = 0; matched = 0;
+    $('mMoves').textContent = 0; var grid = $('mem'); grid.innerHTML = '';
+    deck.forEach(function (ic, i) {
+      var b = document.createElement('button'); b.className = 'mcard'; b.textContent = '❓';
+      b.addEventListener('click', function () { flip(b, i); }); grid.appendChild(b);
+    });
+  }
+  function flip(b, i) {
+    if (lock || b.classList.contains('open') || b.classList.contains('done')) return;
+    b.classList.add('open'); b.textContent = deck[i]; beep(520, .06, 'square', .03);
+    if (first === null) { first = i; firstBtn = b; return; }
+    moves++; $('mMoves').textContent = moves;
+    if (deck[first] === deck[i]) {
+      var a = firstBtn; a.classList.remove('open'); a.classList.add('done'); b.classList.remove('open'); b.classList.add('done');
+      first = null; firstBtn = null; matched++; beep(988, .15, 'triangle', .06);
+      if (matched === icons.length) { unlock('memory'); addKK(10); confetti(60); toast(pick(memWins)); }
+    } else {
+      lock = true; var a2 = firstBtn; first = null; firstBtn = null;
+      if (Math.random() < 0.3) toast(pick(memFails));
+      setTimeout(function () { a2.classList.remove('open'); a2.textContent = '❓'; b.classList.remove('open'); b.textContent = '❓'; lock = false; }, 700);
+    }
+  }
+  $('mReset').addEventListener('click', buildMem);
+  buildMem();
+
+  /* ================= КНОПКА «ЭТО НЕ Я» ================= */
+  var no = $('no'), slot = $('noSlot'), sad = $('sad');
+  var texts = ['Это не я 😤', 'Не надо~ 🥺', 'Ну пожалуйста!', 'Не лови меня 😭', 'Сенпай!!', 'Кавайно же!', 'Хихи, мимо~ 🎀', 'Я в домике! 🏠', 'Это двойник! 🕵️', 'Нет таких складок! 🙈', 'Я просто подушка 🛏️', 'Стой, у меня лапки! 🐾'];
+  var n = 0, fled = false, dodges = 0, TIRED = 10, tired = false, sadOpen = false, lastType = 'mouse';
 
   function detach() {
     if (fled) return;
     var r = no.getBoundingClientRect();
     document.body.appendChild(no);
-    no.style.position = 'fixed';
-    no.style.margin = '0';
-    no.style.zIndex = '50';
-    no.style.left = r.left + 'px';
-    no.style.top = r.top + 'px';
+    no.style.position = 'fixed'; no.style.margin = '0'; no.style.zIndex = '90';
+    no.style.left = r.left + 'px'; no.style.top = r.top + 'px';
     void no.offsetWidth;
     no.style.transition = 'left .18s ease-out, top .18s ease-out, transform .15s';
     fled = true;
   }
-
   function moveNo(x, y) {
     detach();
     var w = no.offsetWidth, h = no.offsetHeight, pad = 10;
     no.style.left = Math.max(pad, Math.min(window.innerWidth - w - pad, x)) + 'px';
     no.style.top = Math.max(pad, Math.min(window.innerHeight - h - pad, y)) + 'px';
-    n++;
-    no.textContent = texts[n % texts.length];
+    n++; no.textContent = texts[n % texts.length];
   }
-
-  function flee(px, py) {
+  var dodgeToasts = { 3: '🏃 Кнопка бежит быстрее, чем Хирон до холодильника', 6: '💨 Кнопка тренируется на кентавре-тренажёре', 9: '😮‍💨 Кнопка тяжело дышит… почти сдалась' };
+  function dodged() {
+    dodges++;
+    $('dodgeInfo').textContent = '(увёрток: ' + dodges + ')';
+    if (dodgeToasts[dodges]) toast(dodgeToasts[dodges]);
+    if (dodges >= TIRED && !tired) {
+      tired = true; no.classList.add('tired'); no.textContent = 'Я устал… 😩 лови';
+      toast('😩 Кнопка устала! Теперь её можно поймать');
+    }
+  }
+  function flee(px, py, force) {
+    if (tired || sadOpen) return;
     var r = no.getBoundingClientRect();
     var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    var dx = cx - px, dy = cy - py;
-    var dist = Math.hypot(dx, dy) || 1;
-    if (dist > 150) return;
-
+    var dx = cx - px, dy = cy - py, dist = Math.hypot(dx, dy) || 1;
+    if (dist > 130 && !force) return;
     dx /= dist; dy /= dist;
     var step = 200 + Math.random() * 100;
     var nx = r.left + dx * step + (Math.random() - .5) * 80;
     var ny = r.top + dy * step + (Math.random() - .5) * 80;
-
-    var cornered = nx < 10 || ny < 10 ||
-      nx > window.innerWidth - r.width - 10 ||
-      ny > window.innerHeight - r.height - 10;
+    var cornered = nx < 10 || ny < 10 || nx > window.innerWidth - r.width - 10 || ny > window.innerHeight - r.height - 10;
     if (cornered && Math.random() < 0.55) {
       nx = Math.random() * (window.innerWidth - r.width - 20) + 10;
       ny = Math.random() * (window.innerHeight - r.height - 20) + 10;
     }
-    moveNo(nx, ny);
+    moveNo(nx, ny); dodged();
   }
 
-  window.addEventListener('pointermove', function (e) { flee(e.clientX, e.clientY); });
-  no.addEventListener('touchstart', function (e) {
-    e.preventDefault();
-    var t = e.touches[0];
-    flee(t.clientX, t.clientY);
-  }, { passive: false });
+  window.addEventListener('pointermove', function (e) { lastType = e.pointerType; flee(e.clientX, e.clientY, false); });
 
-  /* ---------- Грустный экран ---------- */
-  var sad = document.getElementById('sad');
-  no.addEventListener('click', function () {
+  function caught() {
+    if (sadOpen) return; sadOpen = true;
+    unlock('caught');
+    document.body.classList.add('shake'); setTimeout(function () { document.body.classList.remove('shake'); }, 700);
+    beep(200, .4, 'sawtooth', .07); setTimeout(function () { beep(150, .5, 'sawtooth', .07); }, 250);
     sad.classList.add('show');
     for (var i = 0; i < 40; i++) {
-      var t = document.createElement('div');
-      t.className = 'tear';
+      var t = document.createElement('div'); t.className = 'tear';
       t.textContent = i % 3 ? '💧' : '😢';
-      t.style.left = Math.random() * 100 + 'vw';
-      t.style.animationDuration = 2 + Math.random() * 3 + 's';
-      t.style.animationDelay = -Math.random() * 4 + 's';
+      t.style.left = Math.random() * 100 + 'vw'; t.style.animationDuration = 2 + Math.random() * 3 + 's'; t.style.animationDelay = -Math.random() * 4 + 's';
       sad.appendChild(t);
     }
+  }
+
+  window.addEventListener('pointerdown', function (e) {
+    if (sadOpen) return;
+    lastType = e.pointerType;
+    var r = no.getBoundingClientRect(), pad = 6;
+    var inside = e.clientX >= r.left - pad && e.clientX <= r.right + pad && e.clientY >= r.top - pad && e.clientY <= r.bottom + pad;
+    if (!inside) return;
+    if (e.pointerType === 'touch' && !tired) { flee(e.clientX, e.clientY, true); return; }
+    caught();
+  }, true);
+  no.addEventListener('click', function () {
+    if (lastType === 'touch' && !tired) return;
+    caught();
   });
 
-  document.getElementById('back').addEventListener('click', function () {
+  $('back').addEventListener('click', function () {
     sad.classList.remove('show');
-    var tears = sad.querySelectorAll('.tear');
-    for (var i = 0; i < tears.length; i++) tears[i].remove();
-    slot.appendChild(no);
-    no.removeAttribute('style');
+    var tears = sad.querySelectorAll('.tear'); for (var i = 0; i < tears.length; i++) tears[i].remove();
+    slot.appendChild(no); no.removeAttribute('style'); no.className = '';
     no.textContent = 'Это не я 😤';
-    n = 0; fled = false;
+    n = 0; fled = false; dodges = 0; tired = false; sadOpen = false;
+    $('dodgeInfo').textContent = '';
   });
 
-  /* ---------- Кнопка «Спасибо» ---------- */
-  document.getElementById('yes').addEventListener('click', function () {
-    document.getElementById('thanks').style.display = 'block';
-    confetti(80);
+  var yesMsgs = [
+    'Аригатооо, Хирон-сенпай!!! 🎉💖 Binter ждёт свои 50кк в честь праздника~ Кавайиии!',
+    'Хирон сказал «пожалуйста» и мило покраснел 😳💖 Binter ждёт ресики~',
+    'Спасибо принято! Складки одобрили, меч не промахнулся ⚔️💞 Ждём 50кк~'
+  ];
+  var yesCount = 0;
+  $('yes').addEventListener('click', function () {
+    $('thanks').textContent = yesMsgs[yesCount % yesMsgs.length]; yesCount++;
+    $('thanks').style.display = 'block'; unlock('thanks'); confetti(80); jingle();
   });
 })();
 </script>
@@ -356,7 +805,7 @@ function coinTexture(text) {
   g.fillText(text, 128, 138);
   return new THREE.CanvasTexture(c);
 }
-function makeCoin(size = 1, label = '💖') {
+function makeCoin(size = 1, label = '$') {
   const geo = new THREE.CylinderGeometry(size, size, size * 0.18, 48);
   const side = new THREE.MeshStandardMaterial({ color: 0xffc107, metalness: .9, roughness: .25 });
   const face = new THREE.MeshStandardMaterial({ map: coinTexture(label), metalness: .6, roughness: .35 });
@@ -379,18 +828,33 @@ function makeHeart(size = 1, color = 0xff4fa3) {
 
 const items = [];
 const heartColors = [0xff4fa3, 0xff8fc8, 0xb37bff, 0x6fd0ff];
-for (let i = 0; i < 16; i++) {
-  const obj = i % 2 ? makeCoin(0.6 + Math.random() * 0.4) : makeHeart(0.7 + Math.random() * 0.6, heartColors[i % 4]);
-  obj.position.set((Math.random() - .5) * 26, (Math.random() - .5) * 15, (Math.random() - .5) * 8 - 2);
+for (let i = 0; i < 18; i++) {
+  const obj = i % 2 ? makeCoin(0.6 + Math.random() * 0.4, '$') : makeHeart(0.7 + Math.random() * 0.6, heartColors[i % 4]);
+  obj.position.set((Math.random() - .5) * 28, (Math.random() - .5) * 16, (Math.random() - .5) * 8 - 2);
   obj.userData = {
     rot: new THREE.Vector3(Math.random() * .02, Math.random() * .03, Math.random() * .01),
     baseY: obj.position.y, speed: .5 + Math.random(), phase: Math.random() * 6
   };
   scene.add(obj); items.push(obj);
 }
+
 const big = makeCoin(2.2, '100');
-big.position.set(-7.5, 2, -3);
+big.position.set(-8, 2, -3);
 scene.add(big);
+
+const mochi = new THREE.Mesh(
+  new THREE.TorusGeometry(1.6, 0.8, 32, 64),
+  new THREE.MeshStandardMaterial({ color: 0xffb3dc, roughness: .35, metalness: .1 })
+);
+mochi.position.set(8, -1.5, -3);
+scene.add(mochi);
+
+const N = 400, pos = new Float32Array(N * 3);
+for (let i = 0; i < N; i++) { pos[i*3] = (Math.random()-.5)*50; pos[i*3+1] = (Math.random()-.5)*30; pos[i*3+2] = (Math.random()-.5)*20 - 6; }
+const pg = new THREE.BufferGeometry();
+pg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+const stars = new THREE.Points(pg, new THREE.PointsMaterial({ color: 0xffffff, size: 0.12, transparent: true, opacity: .9 }));
+scene.add(stars);
 
 let mx = 0, my = 0;
 addEventListener('pointermove', e => {
@@ -401,7 +865,8 @@ function resize() {
   renderer.setSize(innerWidth, innerHeight, false);
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
-  big.visible = innerWidth > 900;
+  const wide = innerWidth > 1000;
+  big.visible = wide; mochi.visible = wide;
 }
 addEventListener('resize', resize); resize();
 
@@ -414,6 +879,9 @@ const clock = new THREE.Clock();
   });
   big.rotation.y = t * 1.2;
   big.position.y = 2 + Math.sin(t) * 0.5;
+  mochi.rotation.x = t * 0.6; mochi.rotation.y = t * 0.8;
+  mochi.position.y = -1.5 + Math.cos(t * 1.1) * 0.5;
+  stars.rotation.y = t * 0.02;
   camera.position.x += (mx * 1.5 - camera.position.x) * .05;
   camera.position.y += (-my * 1.0 - camera.position.y) * .05;
   camera.lookAt(0, 0, 0);
