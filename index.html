@@ -1,312 +1,29 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ресики для Binter'а от Хирона 💖</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; overflow-x: hidden; }
-  body {
-    font-family: "Comic Sans MS", "Trebuchet MS", sans-serif;
-    background: linear-gradient(135deg, #ffd6ec, #d9c6ff, #c6ecff, #ffd6ec);
-    background-size: 400% 400%;
-    animation: bg 14s ease infinite;
-    color: #5b2a86;
-  }
-  @keyframes bg { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-
-  #three { position: fixed; inset: 0; z-index: 0; }
-  #petals { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
-  .petal { position: absolute; top: -40px; animation: fall linear infinite; user-select: none; }
-  @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-
-  main {
-    position: relative; z-index: 2; min-height: 100vh;
-    display: flex; align-items: center; justify-content: center; padding: 20px;
-  }
-  .card {
-    max-width: 640px; width: 100%;
-    background: rgba(255,255,255,0.78);
-    backdrop-filter: blur(10px);
-    border: 4px solid #ff9ed2; border-radius: 32px;
-    padding: 32px 26px; text-align: center;
-    box-shadow: 0 10px 40px rgba(255,105,180,.4);
-    animation: float 4s ease-in-out infinite;
-  }
-  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-
-  h1 {
-    font-size: clamp(1.7rem, 5vw, 2.6rem);
-    background: linear-gradient(90deg,#ff4fa3,#a45bff,#3fb6ff,#ff4fa3);
-    background-size: 300% 100%;
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    animation: shine 5s linear infinite; margin-bottom: 10px;
-  }
-  @keyframes shine { to { background-position: 300% 0; } }
-
-  .sub { font-size: 1.1rem; margin-bottom: 14px; min-height: 3.4em; }
-  .cursor { animation: blink 1s infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-
-  .amount {
-    font-size: clamp(2.2rem, 8vw, 3.6rem); font-weight: bold; color: #ff4fa3;
-    text-shadow: 0 0 12px #fff, 0 0 24px #ffb3dc;
-    animation: pulse 1.2s ease-in-out infinite; margin: 6px 0 14px;
-  }
-  @keyframes pulse { 50% { transform: scale(1.1); } }
-
-  ul { list-style: none; text-align: left; margin: 10px auto 20px; max-width: 450px; }
-  li {
-    background: #fff0f8; border-radius: 16px; padding: 8px 14px; margin: 6px 0;
-    opacity: 0; transform: translateX(-30px); animation: slidein .6s forwards;
-  }
-  li:nth-child(1){animation-delay:.3s} li:nth-child(2){animation-delay:.6s}
-  li:nth-child(3){animation-delay:.9s} li:nth-child(4){animation-delay:1.2s}
-  @keyframes slidein { to { opacity: 1; transform: none; } }
-
-  .buttons { display: flex; justify-content: center; align-items: center; gap: 20px; height: 80px; flex-wrap: wrap; }
-  button {
-    font-family: inherit; font-size: 1.1rem; border: none; cursor: pointer;
-    padding: 14px 26px; border-radius: 999px; color: #fff; font-weight: bold;
-    transition: transform .15s;
-  }
-  #yes {
-    background: linear-gradient(135deg,#ff4fa3,#ff8fc8);
-    box-shadow: 0 6px 0 #c72f7d, 0 10px 20px rgba(255,79,163,.5);
-  }
-  #yes:hover { transform: scale(1.12) rotate(-2deg); }
-  #yes:active { transform: translateY(4px); }
-  #no {
-    background: #9a8fb3; box-shadow: 0 6px 0 #6f6589;
-    transition: left .18s ease-out, top .18s ease-out;
-    z-index: 5;
-  }
-  #noSlot { width: 120px; height: 50px; }
-
-  #thanks { display: none; font-size: 1.3rem; margin-top: 10px; animation: pop .6s ease; }
-  @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
-  .ps { font-size: .85rem; opacity: .75; margin-top: 16px; }
-
-  .boom { position: fixed; z-index: 10; pointer-events: none; font-size: 2rem; animation: boom 1.6s ease-out forwards; }
-  @keyframes boom { to { transform: translate(var(--x), var(--y)) rotate(720deg) scale(.4); opacity: 0; } }
-
-  /* ---------- грустный экран ---------- */
-  #sad {
-    position: fixed; inset: 0; z-index: 100; display: none;
-    align-items: center; justify-content: center; padding: 20px;
-    background: linear-gradient(180deg, #4a4a78, #2a2a4a);
-    overflow: hidden; animation: fadein .5s ease;
-  }
-  @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
-  #sad.show { display: flex; }
-  .sadcard {
-    position: relative; z-index: 2; max-width: 620px; width: 100%;
-    background: rgba(255,255,255,.12); border: 3px dashed #ff9ed2;
-    border-radius: 28px; padding: 30px 24px; text-align: center; color: #ffe3f3;
-    backdrop-filter: blur(8px); max-height: 92vh; overflow-y: auto;
-  }
-  .sadcard h2 { font-size: clamp(1.6rem, 5vw, 2.3rem); margin-bottom: 14px; color: #ffb3dc; }
-  .sadcard p { margin: 10px 0; line-height: 1.5; }
-  .sadcard .big { font-size: 4rem; animation: shake 1.2s infinite; display: block; }
-  @keyframes shake { 0%,100%{transform:rotate(-6deg)} 50%{transform:rotate(6deg)} }
-  #back {
-    margin-top: 18px; background: linear-gradient(135deg,#ff4fa3,#ff8fc8);
-    box-shadow: 0 6px 0 #c72f7d;
-  }
-  .tear { position: absolute; top: -40px; font-size: 24px; animation: rain linear infinite; z-index: 1; }
-  @keyframes rain { to { transform: translateY(110vh); } }
-</style>
-</head>
-<body>
-
-<canvas id="three"></canvas>
-<div id="petals"></div>
-
-<main>
-  <div class="card">
-    <h1>✨ Ресики для Binter'а! ✨</h1>
-    <div class="sub"><span id="typed"></span><span class="cursor">|</span></div>
-
-    <div class="amount">Хирон → Binter<br>50кк 💰</div>
-
-    <ul>
-      <li>💖 Binter станет самым счастливым няшкой на свете</li>
-      <li>🎀 Хирон будет самым щедрым и любимым сенпаем</li>
-      <li>🐱 Binter подарит сто тысяч «ня» в ответ</li>
-      <li>🍪 Виртуальные печеньки сверху</li>
-    </ul>
-
-    <div class="buttons">
-      <button id="yes">Да, скину Binter'у! 💕</button>
-      <div id="noSlot"><button id="no">Нет 😿</button></div>
-    </div>
-
-    <div id="thanks">Аригатооо, Хирон-сенпай!!! 🎉💖 Binter получил ресики и счастлив! Кавайиии~</div>
-    <div class="ps">P.S. Кнопка «Нет» очень застенчивая и боится курсора 🥺👉👈</div>
-  </div>
-</main>
-
-<!-- ГРУСТНЫЙ ЭКРАН -->
-<div id="sad">
-  <div class="sadcard">
-    <span class="big">😭</span>
-    <h2>Хирон… ты нажал «Нет»… 💔</h2>
-    <p>Binter сидит в уголочке, обнимает подушечку и тихонько шмыгает носиком… хнык~ 😿</p>
-    <p>Я так старался, делал сайтик, крутил монеточки, а ты взял и поймал эту кнопку… 🥺 Неужели тебе совсем-совсем не жалко маленького няшного Binter'а?</p>
-    <p>50кк для тебя как пылинка на копытце 🐴✨, а для Binter'а это целая вселенная ресиков. Ты разбил моё сердечко на 50 000 000 кусочков, сенпай… 💔💔💔</p>
-    <p>Даже кнопка «Нет» убегала от тебя изо всех сил, а ты всё равно её догнал… жестокий, жестокий кентавр… 😭</p>
-    <p>Binter теперь будет сидеть тут с пустым кошелёчком, смотреть на дождик 🌧️ и писать грустные «ня» в пустоту… ня… (｡•́︿•̀｡)</p>
-    <p><b>Binter очень обиделся. Binter не разговаривает с Хироном (ну, почти). 💢😿</b></p>
-    <button id="back">Ладно, прости, скину Binter'у 💖</button>
-  </div>
-</div>
-
-<script type="importmap">
-{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
-</script>
-
-<script type="module">
-import * as THREE from 'three';
-
-/* ---------- 3D ---------- */
-const canvas = document.getElementById('three');
-const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
-camera.position.z = 12;
-
-scene.add(new THREE.AmbientLight(0xffffff, 0.9));
-const dl = new THREE.DirectionalLight(0xffffff, 1.4);
-dl.position.set(5, 8, 10); scene.add(dl);
-const pl = new THREE.PointLight(0xff8fd0, 60, 40);
-pl.position.set(-6, -3, 6); scene.add(pl);
-
-function coinTexture(text) {
-  const c = document.createElement('canvas');
-  c.width = c.height = 256;
-  const g = c.getContext('2d');
-  g.fillStyle = '#ffd54a'; g.fillRect(0, 0, 256, 256);
-  g.strokeStyle = '#d99a00'; g.lineWidth = 14;
-  g.beginPath(); g.arc(128, 128, 112, 0, Math.PI * 2); g.stroke();
-  g.fillStyle = '#b87400'; g.font = 'bold 72px sans-serif';
-  g.textAlign = 'center'; g.textBaseline = 'middle';
-  g.fillText(text, 128, 138);
-  return new THREE.CanvasTexture(c);
-}
-function makeCoin(size = 1, label = '💖') {
-  const geo = new THREE.CylinderGeometry(size, size, size * 0.18, 48);
-  const side = new THREE.MeshStandardMaterial({ color: 0xffc107, metalness: .9, roughness: .25 });
-  const face = new THREE.MeshStandardMaterial({ map: coinTexture(label), metalness: .6, roughness: .35 });
-  const m = new THREE.Mesh(geo, [side, face, face]);
-  m.rotation.x = Math.PI / 2;
-  const g = new THREE.Group(); g.add(m); return g;
-}
-function makeHeart(size = 1, color = 0xff4fa3) {
-  const s = new THREE.Shape();
-  s.moveTo(0, 0.5);
-  s.bezierCurveTo(0, 0.9, -0.6, 1.0, -0.6, 0.5);
-  s.bezierCurveTo(-0.6, 0.1, -0.2, -0.2, 0, -0.6);
-  s.bezierCurveTo(0.2, -0.2, 0.6, 0.1, 0.6, 0.5);
-  s.bezierCurveTo(0.6, 1.0, 0, 0.9, 0, 0.5);
-  const geo = new THREE.ExtrudeGeometry(s, { depth: 0.3, bevelEnabled: true, bevelSize: 0.08, bevelThickness: 0.08, bevelSegments: 4 });
-  geo.center();
-  const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color, metalness: .3, roughness: .3 }));
-  mesh.scale.setScalar(size); return mesh;
-}
-
-const items = [];
-const heartColors = [0xff4fa3, 0xff8fc8, 0xb37bff, 0x6fd0ff];
-for (let i = 0; i < 16; i++) {
-  const obj = i % 2 ? makeCoin(0.6 + Math.random() * 0.4) : makeHeart(0.7 + Math.random() * 0.6, heartColors[i % 4]);
-  obj.position.set((Math.random() - .5) * 26, (Math.random() - .5) * 15, (Math.random() - .5) * 8 - 2);
-  obj.userData = {
-    rot: new THREE.Vector3(Math.random() * .02, Math.random() * .03, Math.random() * .01),
-    baseY: obj.position.y, speed: .5 + Math.random(), phase: Math.random() * 6
-  };
-  scene.add(obj); items.push(obj);
-}
-const big = makeCoin(2.2, '50кк');
-big.position.set(-7.5, 2, -3);
-scene.add(big);
-
-let mx = 0, my = 0;
-addEventListener('pointermove', e => {
-  mx = (e.clientX / innerWidth - .5) * 2;
-  my = (e.clientY / innerHeight - .5) * 2;
-});
-function resize() {
-  renderer.setSize(innerWidth, innerHeight, false);
-  camera.aspect = innerWidth / innerHeight;
-  camera.updateProjectionMatrix();
-  big.visible = innerWidth > 900;
-}
-addEventListener('resize', resize); resize();
-
-const clock = new THREE.Clock();
-(function animate() {
-  const t = clock.getElapsedTime();
-  items.forEach(o => {
-    o.rotation.x += o.userData.rot.x; o.rotation.y += o.userData.rot.y; o.rotation.z += o.userData.rot.z;
-    o.position.y = o.userData.baseY + Math.sin(t * o.userData.speed + o.userData.phase) * 0.6;
-  });
-  big.rotation.y = t * 1.2;
-  big.position.y = 2 + Math.sin(t) * 0.5;
-  camera.position.x += (mx * 1.5 - camera.position.x) * .05;
-  camera.position.y += (-my * 1.0 - camera.position.y) * .05;
-  camera.lookAt(0, 0, 0);
-  renderer.render(scene, camera);
-  requestAnimationFrame(animate);
-})();
-
-/* ---------- Печатающийся текст ---------- */
-const phrases = [
-  'Охаё, Хирон-сенпай~ 🌸 Уву~',
-  'Это Binter! Мне очень-очень нужны ресики 🥺👉👈',
-  'Онегаишимасу, скинь Binter\'у 50кк! Ганбаре, я буду стараться! 💪'
-];
-const typed = document.getElementById('typed');
-let pi = 0, ci = 0, del = false;
-(function type() {
-  const p = phrases[pi];
-  typed.textContent = p.slice(0, ci);
-  if (!del && ci < p.length) { ci++; setTimeout(type, 60); }
-  else if (!del) { del = true; setTimeout(type, 1800); }
-  else if (ci > 0) { ci--; setTimeout(type, 25); }
-  else { del = false; pi = (pi + 1) % phrases.length; setTimeout(type, 400); }
-})();
-
-/* ---------- Лепестки ---------- */
-const petals = document.getElementById('petals');
-const emojis = ['🌸', '💖', '✨', '🎀', '⭐', '🍓'];
-for (let i = 0; i < 28; i++) {
-  const p = document.createElement('div');
-  p.className = 'petal';
-  p.textContent = emojis[i % emojis.length];
-  p.style.left = Math.random() * 100 + 'vw';
-  p.style.fontSize = 14 + Math.random() * 22 + 'px';
-  p.style.animationDuration = 6 + Math.random() * 8 + 's';
-  p.style.animationDelay = -Math.random() * 12 + 's';
-  petals.appendChild(p);
-}
-
 /* ---------- Кнопка «Нет» убегает от мышки ---------- */
 const no = document.getElementById('no');
 const noSlot = document.getElementById('noSlot');
 const texts = ['Нет 😿', 'Не надо~ 🥺', 'Ну пожалуйста!', 'Не лови меня 😭', 'Сенпай!!', 'Кавайно же!', 'Хихи, мимо~ 🎀'];
-let n = 0;
+let n = 0, fled = false;
+
+// выносим кнопку из карточки, чтобы fixed считался от окна
+document.body.appendChild(no);
+no.style.position = 'fixed';
+no.style.zIndex = 50;
 
 function placeNo() {
   const r = noSlot.getBoundingClientRect();
-  no.style.position = 'fixed';
+  no.style.transition = 'none';
   no.style.left = r.left + 'px';
   no.style.top = r.top + 'px';
 }
-placeNo();
-addEventListener('resize', () => { if (n === 0) placeNo(); });
+// пока кнопку не спугнули, она следует за своим местом в карточке (карточка плавает)
+(function follow() {
+  if (!fled) placeNo();
+  requestAnimationFrame(follow);
+})();
 
 function moveNo(x, y) {
+  fled = true;
+  no.style.transition = 'left .18s ease-out, top .18s ease-out';
   const w = no.offsetWidth, h = no.offsetHeight, pad = 10;
   no.style.left = Math.max(pad, Math.min(innerWidth - w - pad, x)) + 'px';
   no.style.top = Math.max(pad, Math.min(innerHeight - h - pad, y)) + 'px';
@@ -360,26 +77,5 @@ document.getElementById('back').addEventListener('click', () => {
   sad.querySelectorAll('.tear').forEach(t => t.remove());
   no.textContent = 'Нет 😿';
   n = 0;
-  placeNo();
+  fled = false; // кнопка вернётся на своё место в карточке
 });
-
-/* ---------- Салют при «Да» ---------- */
-document.getElementById('yes').addEventListener('click', () => {
-  document.getElementById('thanks').style.display = 'block';
-  const set = ['💖', '🎉', '✨', '💰', '🌸', '🎀', '🪙'];
-  for (let i = 0; i < 70; i++) {
-    const b = document.createElement('div');
-    b.className = 'boom';
-    b.textContent = set[i % set.length];
-    b.style.left = innerWidth / 2 + 'px';
-    b.style.top = innerHeight / 2 + 'px';
-    const a = Math.random() * Math.PI * 2, d = 150 + Math.random() * 450;
-    b.style.setProperty('--x', Math.cos(a) * d + 'px');
-    b.style.setProperty('--y', Math.sin(a) * d + 'px');
-    document.body.appendChild(b);
-    setTimeout(() => b.remove(), 1700);
-  }
-});
-</script>
-</body>
-</html>
