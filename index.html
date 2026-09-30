@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ресики для Хирона 💖</title>
+<title>Binter просит ресики у Хирона 💖</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; overflow-x: hidden; }
@@ -19,63 +19,53 @@
   #three { position: fixed; inset: 0; z-index: 0; }
   #petals { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
   .petal { position: absolute; top: -40px; animation: fall linear infinite; user-select: none; }
-  @keyframes fall {
-    to { transform: translateY(110vh) rotate(360deg); }
-  }
+  @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
   main {
-    position: relative; z-index: 2;
-    min-height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    padding: 20px;
+    position: relative; z-index: 2; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
   }
   .card {
     max-width: 640px; width: 100%;
-    background: rgba(255,255,255,0.75);
+    background: rgba(255,255,255,0.78);
     backdrop-filter: blur(10px);
-    border: 4px solid #ff9ed2;
-    border-radius: 32px;
-    padding: 32px 26px;
-    text-align: center;
+    border: 4px solid #ff9ed2; border-radius: 32px;
+    padding: 32px 26px; text-align: center;
     box-shadow: 0 10px 40px rgba(255,105,180,.4);
     animation: float 4s ease-in-out infinite;
   }
   @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 
   h1 {
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-size: clamp(1.7rem, 5vw, 2.6rem);
     background: linear-gradient(90deg,#ff4fa3,#a45bff,#3fb6ff,#ff4fa3);
     background-size: 300% 100%;
     -webkit-background-clip: text; background-clip: text; color: transparent;
-    animation: shine 5s linear infinite;
-    margin-bottom: 10px;
+    animation: shine 5s linear infinite; margin-bottom: 10px;
   }
   @keyframes shine { to { background-position: 300% 0; } }
 
-  .sub { font-size: 1.1rem; margin-bottom: 14px; min-height: 3.2em; }
+  .sub { font-size: 1.1rem; margin-bottom: 14px; min-height: 3.4em; }
   .cursor { animation: blink 1s infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 
   .amount {
-    font-size: clamp(2.4rem, 9vw, 4rem);
-    font-weight: bold; color: #ff4fa3;
+    font-size: clamp(2.4rem, 9vw, 4rem); font-weight: bold; color: #ff4fa3;
     text-shadow: 0 0 12px #fff, 0 0 24px #ffb3dc;
-    animation: pulse 1.2s ease-in-out infinite;
-    margin: 6px 0 14px;
+    animation: pulse 1.2s ease-in-out infinite; margin: 6px 0 14px;
   }
   @keyframes pulse { 50% { transform: scale(1.12); } }
 
-  ul { list-style: none; text-align: left; margin: 10px auto 20px; max-width: 420px; }
+  ul { list-style: none; text-align: left; margin: 10px auto 20px; max-width: 430px; }
   li {
     background: #fff0f8; border-radius: 16px; padding: 8px 14px; margin: 6px 0;
-    opacity: 0; transform: translateX(-30px);
-    animation: slidein .6s forwards;
+    opacity: 0; transform: translateX(-30px); animation: slidein .6s forwards;
   }
   li:nth-child(1){animation-delay:.3s} li:nth-child(2){animation-delay:.6s}
   li:nth-child(3){animation-delay:.9s} li:nth-child(4){animation-delay:1.2s}
   @keyframes slidein { to { opacity: 1; transform: none; } }
 
-  .buttons { position: relative; height: 90px; }
+  .buttons { display: flex; justify-content: center; align-items: center; gap: 20px; height: 80px; }
   button {
     font-family: inherit; font-size: 1.2rem; border: none; cursor: pointer;
     padding: 14px 28px; border-radius: 999px; color: #fff; font-weight: bold;
@@ -89,20 +79,43 @@
   #yes:active { transform: translateY(4px); }
   #no {
     background: #9a8fb3; box-shadow: 0 6px 0 #6f6589;
-    position: absolute; left: 62%; top: 0;
+    transition: left .18s ease-out, top .18s ease-out;
+    z-index: 5;
   }
+  #noSlot { width: 120px; height: 50px; }
 
-  #thanks {
-    display: none; font-size: 1.4rem; margin-top: 10px;
-    animation: pop .6s ease;
-  }
+  #thanks { display: none; font-size: 1.4rem; margin-top: 10px; animation: pop .6s ease; }
   @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+  .ps { font-size: .85rem; opacity: .75; margin-top: 16px; }
 
   .boom { position: fixed; z-index: 10; pointer-events: none; font-size: 2rem; animation: boom 1.6s ease-out forwards; }
-  @keyframes boom {
-    to { transform: translate(var(--x), var(--y)) rotate(720deg) scale(.4); opacity: 0; }
+  @keyframes boom { to { transform: translate(var(--x), var(--y)) rotate(720deg) scale(.4); opacity: 0; } }
+
+  /* ---------- грустный экран ---------- */
+  #sad {
+    position: fixed; inset: 0; z-index: 100; display: none;
+    align-items: center; justify-content: center; padding: 20px;
+    background: linear-gradient(180deg, #4a4a78, #2a2a4a);
+    overflow: hidden; animation: fadein .5s ease;
   }
-  .ps { font-size: .85rem; opacity: .75; margin-top: 16px; }
+  @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+  #sad.show { display: flex; }
+  .sadcard {
+    position: relative; z-index: 2; max-width: 620px; width: 100%;
+    background: rgba(255,255,255,.12); border: 3px dashed #ff9ed2;
+    border-radius: 28px; padding: 30px 24px; text-align: center; color: #ffe3f3;
+    backdrop-filter: blur(8px); max-height: 92vh; overflow-y: auto;
+  }
+  .sadcard h2 { font-size: clamp(1.6rem, 5vw, 2.3rem); margin-bottom: 14px; color: #ffb3dc; }
+  .sadcard p { margin: 10px 0; line-height: 1.5; }
+  .sadcard .big { font-size: 4rem; animation: shake 1.2s infinite; display: block; }
+  @keyframes shake { 0%,100%{transform:rotate(-6deg)} 50%{transform:rotate(6deg)} }
+  #back {
+    margin-top: 18px; background: linear-gradient(135deg,#ff4fa3,#ff8fc8);
+    box-shadow: 0 6px 0 #c72f7d;
+  }
+  .tear { position: absolute; top: -40px; font-size: 24px; animation: rain linear infinite; z-index: 1; }
+  @keyframes rain { to { transform: translateY(110vh); } }
 </style>
 </head>
 <body>
@@ -112,27 +125,42 @@
 
 <main>
   <div class="card">
-    <h1>✨ Ресики для Хирона ✨</h1>
+    <h1>✨ Хирон, скинь ресики! ✨</h1>
     <div class="sub"><span id="typed"></span><span class="cursor">|</span></div>
 
     <div class="amount">50кк 💰</div>
 
     <ul>
-      <li>💖 Хирон будет самым счастливым кентавром</li>
-      <li>🎀 Я скажу «сугооой!» на каждую твою катку</li>
+      <li>💖 Хирон станет самым щедрым кентавром на свете</li>
+      <li>🎀 Binter скажет «сугооой!» на каждую его катку</li>
       <li>🐱 Сто тысяч «ня» в подарок</li>
       <li>🍪 Виртуальные печеньки сверху</li>
     </ul>
 
     <div class="buttons">
       <button id="yes">Да, скину! 💕</button>
-      <button id="no">Нет 😿</button>
+      <div id="noSlot"><button id="no">Нет 😿</button></div>
     </div>
 
-    <div id="thanks">Аригатооо, сенпай!!! 🎉💖 Ты лучший! Кавайиии~</div>
-    <div class="ps">P.S. Кнопка «Нет» сломана, она не хочет работать 🥺👉👈</div>
+    <div id="thanks">Аригатооо, Хирон-сенпай!!! 🎉💖 Binter счастлив! Кавайиии~</div>
+    <div class="ps">P.S. Кнопка «Нет» очень застенчивая и боится курсора 🥺👉👈</div>
   </div>
 </main>
+
+<!-- ГРУСТНЫЙ ЭКРАН -->
+<div id="sad">
+  <div class="sadcard">
+    <span class="big">😭</span>
+    <h2>Хирон… ты нажал «Нет»… 💔</h2>
+    <p>Binter сидит в уголочке, обнимает подушечку и тихонько шмыгает носиком… хнык~ 😿</p>
+    <p>Я так старался, делал сайтик, крутил монеточки, а ты взял и поймал эту кнопку… 🥺 Неужели тебе совсем-совсем не жалко маленького няшного Binter'а?</p>
+    <p>50кк для тебя как пылинка на копытце 🐴✨, а для меня это целая вселенная ресиков. Ты разбил моё сердечко на 50 000 000 кусочков, сенпай… 💔💔💔</p>
+    <p>Даже кнопка «Нет» убегала от тебя изо всех сил, а ты всё равно её догнал… жестокий, жестокий кентавр… 😭</p>
+    <p>Я теперь буду сидеть тут с пустым кошелёчком, смотреть на дождик 🌧️ и писать грустные «ня» в пустоту… ня… (｡•́︿•̀｡)</p>
+    <p><b>Binter очень обиделся. Binter не разговаривает с Хироном (ну, почти). 💢😿</b></p>
+    <button id="back">Ладно, прости, скину 💖</button>
+  </div>
+</div>
 
 <script type="importmap">
 { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
@@ -151,13 +179,10 @@ camera.position.z = 12;
 
 scene.add(new THREE.AmbientLight(0xffffff, 0.9));
 const dl = new THREE.DirectionalLight(0xffffff, 1.4);
-dl.position.set(5, 8, 10);
-scene.add(dl);
+dl.position.set(5, 8, 10); scene.add(dl);
 const pl = new THREE.PointLight(0xff8fd0, 60, 40);
-pl.position.set(-6, -3, 6);
-scene.add(pl);
+pl.position.set(-6, -3, 6); scene.add(pl);
 
-// текстура монеты
 function coinTexture(text) {
   const c = document.createElement('canvas');
   c.width = c.height = 256;
@@ -165,24 +190,19 @@ function coinTexture(text) {
   g.fillStyle = '#ffd54a'; g.fillRect(0, 0, 256, 256);
   g.strokeStyle = '#d99a00'; g.lineWidth = 14;
   g.beginPath(); g.arc(128, 128, 112, 0, Math.PI * 2); g.stroke();
-  g.fillStyle = '#b87400';
-  g.font = 'bold 72px sans-serif';
+  g.fillStyle = '#b87400'; g.font = 'bold 72px sans-serif';
   g.textAlign = 'center'; g.textBaseline = 'middle';
   g.fillText(text, 128, 138);
   return new THREE.CanvasTexture(c);
 }
-
 function makeCoin(size = 1, label = '💖') {
   const geo = new THREE.CylinderGeometry(size, size, size * 0.18, 48);
   const side = new THREE.MeshStandardMaterial({ color: 0xffc107, metalness: .9, roughness: .25 });
   const face = new THREE.MeshStandardMaterial({ map: coinTexture(label), metalness: .6, roughness: .35 });
   const m = new THREE.Mesh(geo, [side, face, face]);
   m.rotation.x = Math.PI / 2;
-  const g = new THREE.Group();
-  g.add(m);
-  return g;
+  const g = new THREE.Group(); g.add(m); return g;
 }
-
 function makeHeart(size = 1, color = 0xff4fa3) {
   const s = new THREE.Shape();
   s.moveTo(0, 0.5);
@@ -193,27 +213,20 @@ function makeHeart(size = 1, color = 0xff4fa3) {
   const geo = new THREE.ExtrudeGeometry(s, { depth: 0.3, bevelEnabled: true, bevelSize: 0.08, bevelThickness: 0.08, bevelSegments: 4 });
   geo.center();
   const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color, metalness: .3, roughness: .3 }));
-  mesh.scale.setScalar(size);
-  return mesh;
+  mesh.scale.setScalar(size); return mesh;
 }
 
 const items = [];
 const heartColors = [0xff4fa3, 0xff8fc8, 0xb37bff, 0x6fd0ff];
-
 for (let i = 0; i < 16; i++) {
   const obj = i % 2 ? makeCoin(0.6 + Math.random() * 0.4) : makeHeart(0.7 + Math.random() * 0.6, heartColors[i % 4]);
   obj.position.set((Math.random() - .5) * 26, (Math.random() - .5) * 15, (Math.random() - .5) * 8 - 2);
   obj.userData = {
     rot: new THREE.Vector3(Math.random() * .02, Math.random() * .03, Math.random() * .01),
-    baseY: obj.position.y,
-    speed: .5 + Math.random(),
-    phase: Math.random() * 6
+    baseY: obj.position.y, speed: .5 + Math.random(), phase: Math.random() * 6
   };
-  scene.add(obj);
-  items.push(obj);
+  scene.add(obj); items.push(obj);
 }
-
-// Большая центральная монета «50кк»
 const big = makeCoin(2.2, '50кк');
 big.position.set(-7.5, 2, -3);
 scene.add(big);
@@ -223,7 +236,6 @@ addEventListener('pointermove', e => {
   mx = (e.clientX / innerWidth - .5) * 2;
   my = (e.clientY / innerHeight - .5) * 2;
 });
-
 function resize() {
   renderer.setSize(innerWidth, innerHeight, false);
   camera.aspect = innerWidth / innerHeight;
@@ -233,12 +245,10 @@ function resize() {
 addEventListener('resize', resize); resize();
 
 const clock = new THREE.Clock();
-function animate() {
+(function animate() {
   const t = clock.getElapsedTime();
   items.forEach(o => {
-    o.rotation.x += o.userData.rot.x;
-    o.rotation.y += o.userData.rot.y;
-    o.rotation.z += o.userData.rot.z;
+    o.rotation.x += o.userData.rot.x; o.rotation.y += o.userData.rot.y; o.rotation.z += o.userData.rot.z;
     o.position.y = o.userData.baseY + Math.sin(t * o.userData.speed + o.userData.phase) * 0.6;
   });
   big.rotation.y = t * 1.2;
@@ -248,26 +258,24 @@ function animate() {
   camera.lookAt(0, 0, 0);
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
-}
-animate();
+})();
 
 /* ---------- Печатающийся текст ---------- */
 const phrases = [
-  'Охаё, Алексей-сенпай~ 🌸 Уву~',
-  'У меня важная миссия: нужны ресы для Хирона 🥺👉👈',
+  'Охаё, Хирон-сенпай~ 🌸 Уву~',
+  'Это Binter! У меня важная миссия: нужны ресики 🥺👉👈',
   'Онегаишимасу, скинь 50кк! Ганбаре, я буду стараться! 💪'
 ];
 const typed = document.getElementById('typed');
 let pi = 0, ci = 0, del = false;
-function type() {
+(function type() {
   const p = phrases[pi];
   typed.textContent = p.slice(0, ci);
   if (!del && ci < p.length) { ci++; setTimeout(type, 60); }
   else if (!del) { del = true; setTimeout(type, 1800); }
   else if (ci > 0) { ci--; setTimeout(type, 25); }
   else { del = false; pi = (pi + 1) % phrases.length; setTimeout(type, 400); }
-}
-type();
+})();
 
 /* ---------- Лепестки ---------- */
 const petals = document.getElementById('petals');
@@ -283,21 +291,79 @@ for (let i = 0; i < 28; i++) {
   petals.appendChild(p);
 }
 
-/* ---------- Убегающая кнопка «Нет» ---------- */
+/* ---------- Кнопка «Нет» убегает от мышки ---------- */
 const no = document.getElementById('no');
-const texts = ['Нет 😿', 'Точно? 🥺', 'Ну пожалуйста~', 'Не нажимается 😭', 'Сенпай!!', 'Кавайно же!'];
-let n = 0;
-function run() {
-  const parent = no.parentElement.getBoundingClientRect();
-  const x = Math.random() * (parent.width - no.offsetWidth);
-  const y = Math.random() * 60 - 20;
-  no.style.left = x + 'px';
-  no.style.top = y + 'px';
+const noSlot = document.getElementById('noSlot');
+const texts = ['Нет 😿', 'Не надо~ 🥺', 'Ну пожалуйста!', 'Не лови меня 😭', 'Сенпай!!', 'Кавайно же!', 'Хихи, мимо~ 🎀'];
+let n = 0, placed = false;
+
+function placeNo() {
+  const r = noSlot.getBoundingClientRect();
+  no.style.position = 'fixed';
+  no.style.left = r.left + 'px';
+  no.style.top = r.top + 'px';
+  placed = true;
+}
+placeNo();
+addEventListener('resize', () => { if (n === 0) placeNo(); });
+
+function moveNo(x, y) {
+  const w = no.offsetWidth, h = no.offsetHeight, pad = 10;
+  no.style.left = Math.max(pad, Math.min(innerWidth - w - pad, x)) + 'px';
+  no.style.top = Math.max(pad, Math.min(innerHeight - h - pad, y)) + 'px';
   no.textContent = texts[++n % texts.length];
 }
-no.addEventListener('mouseenter', run);
-no.addEventListener('touchstart', e => { e.preventDefault(); run(); });
-no.addEventListener('click', run);
+
+function flee(px, py) {
+  const r = no.getBoundingClientRect();
+  const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+  let dx = cx - px, dy = cy - py;
+  const dist = Math.hypot(dx, dy) || 1;
+  const danger = 150;
+  if (dist > danger) return;
+
+  dx /= dist; dy /= dist;
+  const step = 200 + Math.random() * 100;
+  let nx = r.left + dx * step + (Math.random() - .5) * 80;
+  let ny = r.top + dy * step + (Math.random() - .5) * 80;
+
+  // если загнали в угол — иногда телепортируется, иногда нет (чтобы можно было поймать)
+  const cornered = nx < 10 || ny < 10 || nx > innerWidth - r.width - 10 || ny > innerHeight - r.height - 10;
+  if (cornered && Math.random() < 0.55) {
+    nx = Math.random() * (innerWidth - r.width - 20) + 10;
+    ny = Math.random() * (innerHeight - r.height - 20) + 10;
+  }
+  moveNo(nx, ny);
+}
+
+addEventListener('pointermove', e => flee(e.clientX, e.clientY));
+no.addEventListener('touchstart', e => {
+  e.preventDefault();
+  const t = e.touches[0];
+  flee(t.clientX, t.clientY);
+}, { passive: false });
+
+/* ---------- Если поймал «Нет» → грустный экран ---------- */
+const sad = document.getElementById('sad');
+no.addEventListener('click', () => {
+  sad.classList.add('show');
+  for (let i = 0; i < 40; i++) {
+    const t = document.createElement('div');
+    t.className = 'tear';
+    t.textContent = i % 3 ? '💧' : '😢';
+    t.style.left = Math.random() * 100 + 'vw';
+    t.style.animationDuration = 2 + Math.random() * 3 + 's';
+    t.style.animationDelay = -Math.random() * 4 + 's';
+    sad.appendChild(t);
+  }
+});
+document.getElementById('back').addEventListener('click', () => {
+  sad.classList.remove('show');
+  sad.querySelectorAll('.tear').forEach(t => t.remove());
+  no.textContent = 'Нет 😿';
+  n = 0;
+  placeNo();
+});
 
 /* ---------- Салют при «Да» ---------- */
 document.getElementById('yes').addEventListener('click', () => {
