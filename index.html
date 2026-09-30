@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ресики для Binter'а от Хирона 💖</title>
+<title>Поздравляем Хирона со 100 складками! 🎉</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; overflow-x: hidden; }
@@ -26,8 +26,8 @@
     display: flex; align-items: center; justify-content: center; padding: 20px;
   }
   .card {
-    max-width: 640px; width: 100%;
-    background: rgba(255,255,255,0.85);
+    max-width: 660px; width: 100%;
+    background: rgba(255,255,255,0.86);
     border: 4px solid #ff9ed2; border-radius: 32px;
     padding: 32px 26px; text-align: center;
     box-shadow: 0 10px 40px rgba(255,105,180,.4);
@@ -47,13 +47,26 @@
   @keyframes blink { 50% { opacity: 0; } }
 
   .amount {
-    font-size: clamp(2.2rem, 8vw, 3.6rem); font-weight: bold; color: #ff4fa3;
+    font-size: clamp(2.6rem, 10vw, 4.4rem); font-weight: bold; color: #ff4fa3;
     text-shadow: 0 0 12px #fff, 0 0 24px #ffb3dc;
-    animation: pulse 1.2s ease-in-out infinite; margin: 6px 0 14px;
+    animation: pulse 1.2s ease-in-out infinite; margin: 4px 0 4px;
   }
-  @keyframes pulse { 50% { transform: scale(1.1); } }
+  .amount small { display: block; font-size: 1.1rem; color: #a45bff; text-shadow: none; }
+  @keyframes pulse { 50% { transform: scale(1.08); } }
 
-  ul { list-style: none; text-align: left; margin: 10px auto 20px; max-width: 450px; }
+  .bar { height: 26px; background: #fff0f8; border: 3px solid #ff9ed2; border-radius: 999px; overflow: hidden; margin: 12px auto 4px; max-width: 420px; }
+  .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg,#ff4fa3,#ffb3dc,#a45bff); transition: width 3s ease-out; }
+  .barlabel { font-size: .9rem; margin-bottom: 10px; }
+
+  .award {
+    display: inline-block; background: linear-gradient(135deg,#ffe27a,#ffb347);
+    color: #7a4a00; padding: 8px 18px; border-radius: 999px; font-weight: bold;
+    margin: 8px 0 12px; box-shadow: 0 4px 0 #d08a1f;
+    animation: wiggle 2s ease-in-out infinite;
+  }
+  @keyframes wiggle { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
+
+  ul { list-style: none; text-align: left; margin: 10px auto 20px; max-width: 470px; }
   li {
     background: #fff0f8; border-radius: 16px; padding: 8px 14px; margin: 6px 0;
     opacity: 0; transform: translateX(-30px); animation: slidein .6s forwards;
@@ -75,16 +88,15 @@
   #yes:hover { transform: scale(1.12) rotate(-2deg); }
   #yes:active { transform: translateY(4px); }
   #no { background: #9a8fb3; box-shadow: 0 6px 0 #6f6589; white-space: nowrap; }
-  #noSlot { min-width: 130px; min-height: 52px; display: flex; align-items: center; justify-content: center; }
+  #noSlot { min-width: 150px; min-height: 52px; display: flex; align-items: center; justify-content: center; }
 
-  #thanks { display: none; font-size: 1.3rem; margin-top: 10px; animation: pop .6s ease; }
+  #thanks { display: none; font-size: 1.25rem; margin-top: 10px; animation: pop .6s ease; }
   @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
   .ps { font-size: .85rem; opacity: .75; margin-top: 16px; }
 
   .boom { position: fixed; z-index: 10; pointer-events: none; font-size: 2rem; animation: boom 1.6s ease-out forwards; }
   @keyframes boom { to { transform: translate(var(--x), var(--y)) rotate(720deg) scale(.4); opacity: 0; } }
 
-  /* ---------- грустный экран ---------- */
   #sad {
     position: fixed; inset: 0; z-index: 100; display: none;
     align-items: center; justify-content: center; padding: 20px;
@@ -115,51 +127,53 @@
 
 <main>
   <div class="card">
-    <h1>✨ Ресики для Binter'а! ✨</h1>
+    <h1>🎉 Поздравляем, Хирон! 🎉</h1>
     <div class="sub"><span id="typed"></span><span class="cursor">|</span></div>
 
-    <div class="amount">Хирон → Binter<br>50кк 💰</div>
+    <div class="amount"><span id="counter">0</span> складок!<small>новый рекорд мягкости 🍡</small></div>
+
+    <div class="bar"><div id="fill"></div></div>
+    <div class="barlabel">Уровень мягкости: <b id="pct">0</b>%</div>
+
+    <div class="award">🏆 Достижение разблокировано: «Сотня складок»</div>
 
     <ul>
-      <li>💖 Binter станет самым счастливым няшкой на свете</li>
-      <li>🎀 Хирон будет самым щедрым и любимым сенпаем</li>
-      <li>🐱 Binter подарит сто тысяч «ня» в ответ</li>
-      <li>🍪 Виртуальные печеньки сверху</li>
+      <li>🍡 Хирон теперь самый мягкий и обнимабельный кентавр</li>
+      <li>🎀 Каждая складка это ещё одна причина любить сенпая</li>
+      <li>🐴 Копытца топ-топ, складочки буль-буль</li>
+      <li>💰 В честь праздника Binter скромно просит 50кк в подарок</li>
     </ul>
 
     <div class="buttons">
-      <button id="yes">Да, скину Binter'у! 💕</button>
-      <div id="noSlot"><button id="no">Нет 😿</button></div>
+      <button id="yes">Спасибо, Binter! 💕</button>
+      <div id="noSlot"><button id="no">Это не я 😤</button></div>
     </div>
 
-    <div id="thanks">Аригатооо, Хирон-сенпай!!! 🎉💖 Binter получил ресики и счастлив! Кавайиии~</div>
-    <div class="ps">P.S. Кнопка «Нет» очень застенчивая и боится курсора 🥺👉👈</div>
+    <div id="thanks">Аригатооо, Хирон-сенпай!!! 🎉💖 Binter ждёт свои 50кк в честь праздника~ Кавайиии!</div>
+    <div class="ps">P.S. Кнопка «Это не я» очень застенчивая и боится курсора 🥺👉👈</div>
   </div>
 </main>
 
-<!-- ГРУСТНЫЙ ЭКРАН -->
 <div id="sad">
   <div class="sadcard">
     <span class="big">😭</span>
-    <h2>Хирон… ты нажал «Нет»… 💔</h2>
+    <h2>Хирон… ты нажал «Это не я»… 💔</h2>
     <p>Binter сидит в уголочке, обнимает подушечку и тихонько шмыгает носиком… хнык~ 😿</p>
-    <p>Я так старался, делал сайтик, крутил монеточки, а ты взял и поймал эту кнопку… 🥺 Неужели тебе совсем-совсем не жалко маленького няшного Binter'а?</p>
-    <p>50кк для тебя как пылинка на копытце 🐴✨, а для Binter'а это целая вселенная ресиков. Ты разбил моё сердечко на 50 000 000 кусочков, сенпай… 💔💔💔</p>
-    <p>Даже кнопка «Нет» убегала от тебя изо всех сил, а ты всё равно её догнал… жестокий, жестокий кентавр… 😭</p>
-    <p>Binter теперь будет сидеть тут с пустым кошелёчком, смотреть на дождик 🌧️ и писать грустные «ня» в пустоту… ня… (｡•́︿•̀｡)</p>
-    <p><b>Binter очень обиделся. Binter не разговаривает с Хироном (ну, почти). 💢😿</b></p>
-    <button id="back">Ладно, прости, скину Binter'у 💖</button>
+    <p>Я так старался, делал поздравление, считал складочки, а ты взял и поймал эту кнопку… 🥺</p>
+    <p>Сто складок это не позор, а достижение! Мягкие кентавры самые лучшие на свете 🍡✨</p>
+    <p>Binter теперь будет сидеть тут, смотреть на дождик 🌧️ и писать грустные «ня» в пустоту… ня… (｡•́︿•̀｡)</p>
+    <p><b>Binter очень обиделся. Но поздравлять всё равно не перестанет. 💢😿</b></p>
+    <button id="back">Ладно, прости, спасибо Binter'у 💖</button>
   </div>
 </div>
 
-<!-- ===== ОБЫЧНЫЙ СКРИПТ: кнопки, текст, лепестки (не зависит от Three.js) ===== -->
 <script>
 (function () {
   /* ---------- Печатающийся текст ---------- */
   var phrases = [
     'Охаё, Хирон-сенпай~ 🌸 Уву~',
-    'Это Binter! Мне очень-очень нужны ресики 🥺👉👈',
-    "Онегаишимасу, скинь Binter'у 50кк! Ганбаре, я буду стараться! 💪"
+    'Это Binter! У меня для тебя праздничные новости 🥳',
+    'У тебя теперь ЦЕЛЫХ 100 складок! Сугоооой! 🎊'
   ];
   var typed = document.getElementById('typed');
   var pi = 0, ci = 0, del = false;
@@ -172,9 +186,43 @@
     else { del = false; pi = (pi + 1) % phrases.length; setTimeout(type, 400); }
   })();
 
+  /* ---------- Счётчик складок ---------- */
+  var counter = document.getElementById('counter');
+  var pct = document.getElementById('pct');
+  var fill = document.getElementById('fill');
+  setTimeout(function () { fill.style.width = '100%'; }, 300);
+  var start = null;
+  function tick(ts) {
+    if (!start) start = ts;
+    var k = Math.min((ts - start) / 3000, 1);
+    var v = Math.round(100 * (1 - Math.pow(1 - k, 3)));
+    counter.textContent = v;
+    pct.textContent = v;
+    if (k < 1) requestAnimationFrame(tick);
+    else confetti(50);
+  }
+  requestAnimationFrame(tick);
+
+  /* ---------- Конфетти ---------- */
+  function confetti(count) {
+    var set = ['🎉', '🎊', '💖', '✨', '🍡', '🎀', '🌸', '🥳'];
+    for (var i = 0; i < count; i++) {
+      var b = document.createElement('div');
+      b.className = 'boom';
+      b.textContent = set[i % set.length];
+      b.style.left = window.innerWidth / 2 + 'px';
+      b.style.top = window.innerHeight / 2 + 'px';
+      var a = Math.random() * Math.PI * 2, d = 150 + Math.random() * 450;
+      b.style.setProperty('--x', Math.cos(a) * d + 'px');
+      b.style.setProperty('--y', Math.sin(a) * d + 'px');
+      document.body.appendChild(b);
+      (function (el) { setTimeout(function () { el.remove(); }, 1700); })(b);
+    }
+  }
+
   /* ---------- Лепестки ---------- */
   var petals = document.getElementById('petals');
-  var emojis = ['🌸', '💖', '✨', '🎀', '⭐', '🍓'];
+  var emojis = ['🌸', '💖', '✨', '🎀', '🎈', '🍓'];
   for (var i = 0; i < 28; i++) {
     var p = document.createElement('div');
     p.className = 'petal';
@@ -186,13 +234,12 @@
     petals.appendChild(p);
   }
 
-  /* ---------- Кнопка «Нет» ---------- */
+  /* ---------- Кнопка «Это не я» ---------- */
   var no = document.getElementById('no');
   var slot = document.getElementById('noSlot');
-  var texts = ['Нет 😿', 'Не надо~ 🥺', 'Ну пожалуйста!', 'Не лови меня 😭', 'Сенпай!!', 'Кавайно же!', 'Хихи, мимо~ 🎀'];
+  var texts = ['Это не я 😤', 'Не надо~ 🥺', 'Ну пожалуйста!', 'Не лови меня 😭', 'Сенпай!!', 'Кавайно же!', 'Хихи, мимо~ 🎀'];
   var n = 0, fled = false;
 
-  // вынимаем кнопку из карточки только при первом убегании
   function detach() {
     if (fled) return;
     var r = no.getBoundingClientRect();
@@ -202,7 +249,7 @@
     no.style.zIndex = '50';
     no.style.left = r.left + 'px';
     no.style.top = r.top + 'px';
-    void no.offsetWidth; // принудительный reflow
+    void no.offsetWidth;
     no.style.transition = 'left .18s ease-out, top .18s ease-out, transform .15s';
     fled = true;
   }
@@ -264,34 +311,20 @@
     sad.classList.remove('show');
     var tears = sad.querySelectorAll('.tear');
     for (var i = 0; i < tears.length; i++) tears[i].remove();
-    // возвращаем кнопку в карточку
     slot.appendChild(no);
     no.removeAttribute('style');
-    no.textContent = 'Нет 😿';
+    no.textContent = 'Это не я 😤';
     n = 0; fled = false;
   });
 
-  /* ---------- Салют при «Да» ---------- */
+  /* ---------- Кнопка «Спасибо» ---------- */
   document.getElementById('yes').addEventListener('click', function () {
     document.getElementById('thanks').style.display = 'block';
-    var set = ['💖', '🎉', '✨', '💰', '🌸', '🎀', '🪙'];
-    for (var i = 0; i < 70; i++) {
-      var b = document.createElement('div');
-      b.className = 'boom';
-      b.textContent = set[i % set.length];
-      b.style.left = window.innerWidth / 2 + 'px';
-      b.style.top = window.innerHeight / 2 + 'px';
-      var a = Math.random() * Math.PI * 2, d = 150 + Math.random() * 450;
-      b.style.setProperty('--x', Math.cos(a) * d + 'px');
-      b.style.setProperty('--y', Math.sin(a) * d + 'px');
-      document.body.appendChild(b);
-      (function (el) { setTimeout(function () { el.remove(); }, 1700); })(b);
-    }
+    confetti(80);
   });
 })();
 </script>
 
-<!-- ===== 3D (если CDN не загрузится, остальное всё равно работает) ===== -->
 <script type="importmap">
 { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
 </script>
@@ -355,7 +388,7 @@ for (let i = 0; i < 16; i++) {
   };
   scene.add(obj); items.push(obj);
 }
-const big = makeCoin(2.2, '50кк');
+const big = makeCoin(2.2, '100');
 big.position.set(-7.5, 2, -3);
 scene.add(big);
 
